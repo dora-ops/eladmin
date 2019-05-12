@@ -40,7 +40,17 @@ export default {
         ${column.changeColumnName}: ''<#if column_has_next>,</#if>
     </#list>
 </#if>
-      }
+      },
+      rules: {
+      <#if columns??>
+        <#list columns as column>
+          <#if column.isNullable == 'NO'>
+          ${column.changeColumnName}: [
+              {required: true,message:'${column.columnComment}',trigger: 'blur'}
+          ]<#if column_has_next>,</#if></#if>
+        </#list>
+      </#if>
+      },
     }
   },
   methods: {
