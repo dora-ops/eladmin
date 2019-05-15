@@ -20,7 +20,7 @@ import java.util.List;
 @Service
 public class RedisServiceImpl implements RedisService {
 
-    @Autowired
+//    @Autowired
     JedisPool pool;
 
     @Override

@@ -27,12 +27,12 @@ import java.time.Duration;
  * @author jie
  * @date 2018-11-24
  */
-@Slf4j
-@Configuration
-@EnableCaching
-// 自动配置
-@ConditionalOnClass(RedisOperations.class)
-@EnableConfigurationProperties(RedisProperties.class)
+//@Slf4j
+//@Configuration
+//@EnableCaching
+//// 自动配置
+//@ConditionalOnClass(RedisOperations.class)
+//@EnableConfigurationProperties(RedisProperties.class)
 public class RedisConfig extends CachingConfigurerSupport {
 
     @Value("${spring.redis.host}")
