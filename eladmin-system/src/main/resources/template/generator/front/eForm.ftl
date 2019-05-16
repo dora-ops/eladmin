@@ -14,6 +14,7 @@
                                 style="width: 370px;"
                                 placeholder="选择日期">
                         </el-date-picker>
+                    </el-form-item>
                     <#elseif column.columnName?ends_with("_id")>
                         <#assign sel=true/>
                         <#assign selName=column.columnName?substring(0,column.columnName?last_index_of("_id"))/>
@@ -21,11 +22,14 @@
                             <el-option v-for="item in options" :key="item.id" :label="item.name" :value="item.id">
                             </el-option>
                         </el-select>
-                    <#else >
+                    </el-form-item>
+                    <#else>
                         <el-input v-model="form.${column.changeColumnName}" style="width: 370px;"/>
+                    </el-form-item>
                     </#if>
                     </el-form-item>
                 </#if>
+
             </#list>
         </#if>
         </el-form>
