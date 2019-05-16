@@ -14,6 +14,7 @@
                                 style="width: 370px;"
                                 placeholder="选择日期">
                         </el-date-picker>
+                    </el-form-item>
                     <#elseif column.columnName?ends_with("_id")>
                         <#assign sel=true/>
                         <#assign selName=column.columnName?substring(0,column.columnName?last_index_of("_id"))/>
@@ -21,10 +22,13 @@
                             <el-option v-for="item in options" :key="item.id" :label="item.name" :value="item.id">
                             </el-option>
                         </el-select>
-                    <#else >
+                    </el-form-item>
+                    <#else>
                         <el-input v-model="form.${column.changeColumnName}" style="width: 370px;"/>
+                    </el-form-item>
                     </#if>
                 </#if>
+
             </#list>
         </#if>
         </el-form>
@@ -83,7 +87,7 @@
                 } else this.doEdit()
             },
             doAdd() {
-                add(this.form).then(res = > {
+                add(this.form).then(res => {
                     this.resetForm()
                 this.$notify({
                     title: '添加成功',
@@ -93,13 +97,13 @@
                 this.loading = false
                 this.$parent.$parent.init()
             }).
-                catch(err = > {
+                catch(err => {
                     this.loading = false
                 console.log(err.response.data.message)
             })
             },
             doEdit() {
-                edit(this.form).then(res = > {
+                edit(this.form).then(res => {
                     this.resetForm()
                 this.$notify({
                     title: '修改成功',
@@ -109,7 +113,7 @@
                 this.loading = false
                 this.sup_this.init()
             }).
-                catch(err = > {
+                catch(err => {
                     this.loading = false
                 console.log(err.response.data.message)
             })
