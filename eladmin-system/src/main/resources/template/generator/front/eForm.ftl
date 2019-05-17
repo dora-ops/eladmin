@@ -84,7 +84,7 @@
                 } else this.doEdit()
             },
             doAdd() {
-                add(this.form).then(res = > {
+                add(this.form).then(res => {
                     this.resetForm()
                 this.$notify({
                     title: '添加成功',
@@ -94,13 +94,13 @@
                 this.loading = false
                 this.$parent.$parent.init()
             }).
-                catch(err = > {
+                catch(err => {
                     this.loading = false
                 console.log(err.response.data.message)
             })
             },
             doEdit() {
-                edit(this.form).then(res = > {
+                edit(this.form).then(res => {
                     this.resetForm()
                 this.$notify({
                     title: '修改成功',
@@ -110,7 +110,7 @@
                 this.loading = false
                 this.sup_this.init()
             }).
-                catch(err = > {
+                catch(err => {
                     this.loading = false
                 console.log(err.response.data.message)
             })
