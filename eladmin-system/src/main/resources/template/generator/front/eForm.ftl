@@ -24,6 +24,7 @@
                     <#else >
                         <el-input v-model="form.${column.changeColumnName}" style="width: 370px;"/>
                     </#if>
+                    </el-form-item>
                 </#if>
             </#list>
         </#if>
