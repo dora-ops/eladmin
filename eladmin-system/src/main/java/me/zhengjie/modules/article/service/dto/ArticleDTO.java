@@ -41,5 +41,7 @@ public class ArticleDTO implements Serializable {
      */
     private String tea;
 
+    private String state;
+
     private Integer read;
 }

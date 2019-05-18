@@ -52,6 +52,9 @@ public class Article implements Serializable {
     @Column(name = "tea")
     private String tea;
 
+    @Column(name = "state")
+    private String state;
+
     @Column(name = "read")
     private Integer read;
 }

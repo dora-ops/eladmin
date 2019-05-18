@@ -1,0 +1,354 @@
+
+│  AppRun.java      springboot启动入口
+│  
+├─config
+│      ConfigurerAdapter.java	mvc配置
+│      DataScope.java		数据权限配置
+│      
+└─modules
+    ├─erea_info		社区信息
+    │  ├─domain
+    │  │      EreaInfo.java
+    │  │      
+    │  ├─repository
+    │  │      EreaInfoRepository.java
+    │  │      
+    │  ├─rest
+    │  │      EreaInfoController.java
+    │  │      
+    │  └─service
+    │      │  EreaInfoService.java
+    │      │  
+    │      ├─dto
+    │      │      EreaInfoDTO.java
+    │      │      
+    │      ├─impl
+    │      │      EreaInfoServiceImpl.java
+    │      │      
+    │      ├─mapper
+    │      │      EreaInfoMapper.java
+    │      │      
+    │      └─query
+    │              EreaInfoQueryService.java
+    │              
+    ├─express			快递
+    │  ├─domain
+    │  │      Express.java
+    │  │      
+    │  ├─repository
+    │  │      ExpressRepository.java
+    │  │      
+    │  ├─rest
+    │  │      ExpressController.java
+    │  │      
+    │  └─service
+    │      │  ExpressService.java
+    │      │  
+    │      ├─dto
+    │      │      ExpressDTO.java
+    │      │      
+    │      ├─impl
+    │      │      ExpressServiceImpl.java
+    │      │      
+    │      ├─mapper
+    │      │      ExpressMapper.java
+    │      │      
+    │      └─query
+    │              ExpressQueryService.java
+    │              
+    ├─goods		商品
+    │  ├─domain
+    │  │      Goods.java
+    │  │      
+    │  ├─repository
+    │  │      GoodsRepository.java
+    │  │      
+    │  ├─rest
+    │  │      GoodsController.java
+    │  │      
+    │  └─service
+    │      │  GoodsService.java
+    │      │  
+    │      ├─dto
+    │      │      GoodsDTO.java
+    │      │      
+    │      ├─impl
+    │      │      GoodsServiceImpl.java
+    │      │      
+    │      ├─mapper
+    │      │      GoodsMapper.java
+    │      │      
+    │      └─query
+    │              GoodsQueryService.java
+    │              
+    ├─medical		医药
+    │  ├─domain
+    │  │      Medical.java
+    │  │      
+    │  ├─repository
+    │  │      MedicalRepository.java
+    │  │      
+    │  ├─rest
+    │  │      MedicalController.java
+    │  │      
+    │  └─service
+    │      │  MedicalService.java
+    │      │  
+    │      ├─dto
+    │      │      MedicalDTO.java
+    │      │      
+    │      ├─impl
+    │      │      MedicalServiceImpl.java
+    │      │      
+    │      ├─mapper
+    │      │      MedicalMapper.java
+    │      │      
+    │      └─query
+    │              MedicalQueryService.java
+    │              
+    ├─monitor
+    │  ├─config
+    │  │      LogFilter.java
+    │  │      LoggerQueue.java
+    │  │      VisitsInitialization.java
+    │  │      WebSocketConfig.java
+    │  │      
+    │  ├─domain
+    │  │  │  LogMessage.java
+    │  │  │  Visits.java
+    │  │  │  
+    │  │  └─vo
+    │  │          RedisVo.java
+    │  │          
+    │  ├─repository
+    │  │      VisitsRepository.java
+    │  │      
+    │  ├─rest
+    │  │      LimitController.java
+    │  │      RedisController.java
+    │  │      VisitsController.java
+    │  │      
+    │  └─service
+    │      │  RedisService.java
+    │      │  VisitsService.java
+    │      │  
+    │      └─impl
+    │              RedisServiceImpl.java
+    │              VisitsServiceImpl.java
+    │              
+    ├─notice		消息
+    │  ├─domain
+    │  │      Notice.java
+    │  │      
+    │  ├─repository
+    │  │      NoticeRepository.java
+    │  │      
+    │  ├─rest
+    │  │      NoticeController.java
+    │  │      
+    │  └─service
+    │      │  NoticeService.java
+    │      │  
+    │      ├─dto
+    │      │      NoticeDTO.java
+    │      │      
+    │      ├─impl
+    │      │      NoticeServiceImpl.java
+    │      │      
+    │      ├─mapper
+    │      │      NoticeMapper.java
+    │      │      
+    │      └─query
+    │              NoticeQueryService.java
+    │              
+    ├─pro_topic		物业公告
+    │  ├─domain
+    │  │      ProTopic.java
+    │  │      
+    │  ├─repository
+    │  │      ProTopicRepository.java
+    │  │      
+    │  ├─rest
+    │  │      ProTopicController.java
+    │  │      
+    │  └─service
+    │      │  ProTopicService.java
+    │      │  
+    │      ├─dto
+    │      │      ProTopicDTO.java
+    │      │      
+    │      ├─impl
+    │      │      ProTopicServiceImpl.java
+    │      │      
+    │      ├─mapper
+    │      │      ProTopicMapper.java
+    │      │      
+    │      └─query
+    │              ProTopicQueryService.java
+    │              
+    ├─quartz
+    │  ├─config
+    │  │      JobRunner.java
+    │  │      QuartzConfig.java
+    │  │      
+    │  ├─domain
+    │  │      QuartzJob.java
+    │  │      QuartzLog.java
+    │  │      
+    │  ├─repository
+    │  │      QuartzJobRepository.java
+    │  │      QuartzLogRepository.java
+    │  │      
+    │  ├─rest
+    │  │      QuartzJobController.java
+    │  │      
+    │  ├─service
+    │  │  │  QuartzJobService.java
+    │  │  │  
+    │  │  ├─impl
+    │  │  │      QuartzJobServiceImpl.java
+    │  │  │      
+    │  │  └─query
+    │  │          QuartzJobQueryService.java
+    │  │          QuartzLogQueryService.java
+    │  │          
+    │  ├─task
+    │  │      TestTask.java
+    │  │      VisitsTask.java
+    │  │      
+    │  └─utils
+    │          ExecutionJob.java
+    │          QuartzManage.java
+    │          QuartzRunnable.java
+    │          
+    ├─security
+    │  ├─config
+    │  │      SecurityConfig.java
+    │  │      
+    │  ├─rest
+    │  │      AuthenticationController.java
+    │  │      
+    │  ├─security
+    │  │      AuthenticationInfo.java
+    │  │      AuthorizationUser.java
+    │  │      JwtAuthenticationEntryPoint.java
+    │  │      JwtAuthorizationTokenFilter.java
+    │  │      JwtUser.java
+    │  │      
+    │  ├─service
+    │  │      JwtPermissionService.java
+    │  │      JwtUserDetailsService.java
+    │  │      
+    │  └─utils
+    │          JwtTokenUtil.java
+    │          
+    ├─system		系统管理部分
+    │  ├─domain
+    │  │  │  Dept.java
+    │  │  │  Dict.java
+    │  │  │  DictDetail.java
+    │  │  │  Job.java
+    │  │  │  Menu.java
+    │  │  │  Permission.java
+    │  │  │  Role.java
+    │  │  │  User.java
+    │  │  │  
+    │  │  └─vo
+    │  │          MenuMetaVo.java
+    │  │          MenuVo.java
+    │  │          
+    │  ├─repository
+    │  │      DeptRepository.java
+    │  │      DictDetailRepository.java
+    │  │      DictRepository.java
+    │  │      JobRepository.java
+    │  │      MenuRepository.java
+    │  │      PermissionRepository.java
+    │  │      RoleRepository.java
+    │  │      UserRepository.java
+    │  │      
+    │  ├─rest
+    │  │      DeptController.java
+    │  │      DictController.java
+    │  │      DictDetailController.java
+    │  │      JobController.java
+    │  │      MenuController.java
+    │  │      PermissionController.java
+    │  │      RoleController.java
+    │  │      UserController.java
+    │  │      
+    │  └─service
+    │      │  DeptService.java
+    │      │  DictDetailService.java
+    │      │  DictService.java
+    │      │  JobService.java
+    │      │  MenuService.java
+    │      │  PermissionService.java
+    │      │  RoleService.java
+    │      │  UserService.java
+    │      │  
+    │      ├─dto
+    │      │      DeptDTO.java
+    │      │      DictDetailDTO.java
+    │      │      DictDTO.java
+    │      │      JobDTO.java
+    │      │      MenuDTO.java
+    │      │      PermissionDTO.java
+    │      │      RoleDTO.java
+    │      │      UserDTO.java
+    │      │      
+    │      ├─impl
+    │      │      DeptServiceImpl.java
+    │      │      DictDetailServiceImpl.java
+    │      │      DictServiceImpl.java
+    │      │      JobServiceImpl.java
+    │      │      MenuServiceImpl.java
+    │      │      PermissionServiceImpl.java
+    │      │      RoleServiceImpl.java
+    │      │      UserServiceImpl.java
+    │      │      
+    │      ├─mapper
+    │      │      DeptMapper.java
+    │      │      DictDetailMapper.java
+    │      │      DictMapper.java
+    │      │      JobMapper.java
+    │      │      MenuMapper.java
+    │      │      PermissionMapper.java
+    │      │      RoleMapper.java
+    │      │      UserMapper.java
+    │      │      
+    │      └─query
+    │              DeptQueryService.java
+    │              DictDetailQueryService.java
+    │              DictQueryService.java
+    │              JobQueryService.java
+    │              MenuQueryService.java
+    │              PermissionQueryService.java
+    │              RoleQueryService.java
+    │              UserQueryService.java
+    │              
+    └─topic		政府公告部分
+        ├─domain
+        │      Topic.java
+        │      
+        ├─repository
+        │      TopicRepository.java
+        │      
+        ├─rest
+        │      TopicController.java
+        │      
+        └─service
+            │  TopicService.java
+            │  
+            ├─dto
+            │      TopicDTO.java
+            │      
+            ├─impl
+            │      TopicServiceImpl.java
+            │      
+            ├─mapper
+            │      TopicMapper.java
+            │      
+            └─query
+                    TopicQueryService.java
+                    
