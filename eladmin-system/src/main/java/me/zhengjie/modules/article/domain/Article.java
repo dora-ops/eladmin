@@ -7,7 +7,7 @@ import java.io.Serializable;
 
 /**
 * @author jie
-* @date 2019-05-17
+* @date 2019-05-19
 */
 @Entity
 @Data
@@ -29,32 +29,32 @@ public class Article implements Serializable {
     private String title;
 
     /**
-     * 内容
+     * 摘要
      */
-    @Column(name = "content")
-    private String content;
+    @Column(name = "con_tent")
+    private String conTent;
 
     /**
-     * 创建者
+     * 阅读
      */
-    @Column(name = "cus")
-    private String cus;
+    @Column(name = "re_ad")
+    private String reAd;
+
+    /**
+     * 评论
+     */
+    @Column(name = "com_ment")
+    private String comMent;
+
+    /**
+     * 时间
+     */
+    @Column(name = "pub_time")
+    private Timestamp pubTime;
 
     /**
      * 创建时间
      */
     @Column(name = "create_time",nullable = false)
     private Timestamp createTime;
-
-    /**
-     * 教师
-     */
-    @Column(name = "tea")
-    private String tea;
-
-    @Column(name = "state")
-    private String state;
-
-    @Column(name = "read")
-    private Integer read;
 }

@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
 /**
 * @author jie
-* @date 2019-05-17
+* @date 2019-05-19
 */
 public interface ArticleRepository extends JpaRepository<Article, Long>, JpaSpecificationExecutor {
 }

@@ -1,10 +1,10 @@
-package me.zhengjie.modules.article.service.query;
+package me.zhengjie.modules.spider_log.service.query;
 
 import me.zhengjie.utils.PageUtil;
-import me.zhengjie.modules.article.domain.Article;
-import me.zhengjie.modules.article.service.dto.ArticleDTO;
-import me.zhengjie.modules.article.repository.ArticleRepository;
-import me.zhengjie.modules.article.service.mapper.ArticleMapper;
+import me.zhengjie.modules.spider_log.domain.SpiderLog;
+import me.zhengjie.modules.spider_log.service.dto.SpiderLogDTO;
+import me.zhengjie.modules.spider_log.repository.SpiderLogRepository;
+import me.zhengjie.modules.spider_log.service.mapper.SpiderLogMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;
@@ -27,57 +27,51 @@ import java.util.List;
  * @date 2018-12-03
  */
 @Service
-@CacheConfig(cacheNames = "article")
+@CacheConfig(cacheNames = "spiderLog")
 @Transactional(propagation = Propagation.SUPPORTS, readOnly = true, rollbackFor = Exception.class)
-public class ArticleQueryService {
+public class SpiderLogQueryService {
 
     @Autowired
-    private ArticleRepository articleRepository;
+    private SpiderLogRepository spiderLogRepository;
 
     @Autowired
-    private ArticleMapper articleMapper;
+    private SpiderLogMapper spiderLogMapper;
 
     /**
      * 分页
      */
     @Cacheable(keyGenerator = "keyGenerator")
-    public Object queryAll(ArticleDTO article, Pageable pageable){
-        Page<Article> page = articleRepository.findAll(new Spec(article),pageable);
-        return PageUtil.toPage(page.map(articleMapper::toDto));
+    public Object queryAll(SpiderLogDTO spiderLog, Pageable pageable){
+        Page<SpiderLog> page = spiderLogRepository.findAll(new Spec(spiderLog),pageable);
+        return PageUtil.toPage(page.map(spiderLogMapper::toDto));
     }
 
     /**
     * 不分页
     */
     @Cacheable(keyGenerator = "keyGenerator")
-    public Object queryAll(ArticleDTO article){
-        return articleMapper.toDto(articleRepository.findAll(new Spec(article)));
+    public Object queryAll(SpiderLogDTO spiderLog){
+        return spiderLogMapper.toDto(spiderLogRepository.findAll(new Spec(spiderLog)));
     }
 
-    class Spec implements Specification<Article> {
+    class Spec implements Specification<SpiderLog> {
 
-        private ArticleDTO article;
+        private SpiderLogDTO spiderLog;
 
-        public Spec(ArticleDTO article){
-            this.article = article;
+        public Spec(SpiderLogDTO spiderLog){
+            this.spiderLog = spiderLog;
         }
 
         @Override
-        public Predicate toPredicate(Root<Article> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder cb) {
+        public Predicate toPredicate(Root<SpiderLog> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder cb) {
 
             List<Predicate> list = new ArrayList<Predicate>();
 
-            if(!ObjectUtils.isEmpty(article.getTitle())){
+            if(!ObjectUtils.isEmpty(spiderLog.getUrl())){
                 /**
                 * 模糊
                 */
-                list.add(cb.like(root.get("title").as(String.class),"%"+article.getTitle()+"%"));
-            }
-            if(!ObjectUtils.isEmpty(article.getConTent())){
-                /**
-                * 模糊
-                */
-                list.add(cb.like(root.get("con_tent").as(String.class),"%"+article.getConTent()+"%"));
+                list.add(cb.like(root.get("url").as(String.class),"%"+spiderLog.getUrl()+"%"));
             }
                 Predicate[] p = new Predicate[list.size()];
                 return cb.and(list.toArray(p));

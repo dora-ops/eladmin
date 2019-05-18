@@ -1,7 +1,7 @@
-package me.zhengjie.modules.article.service;
+package me.zhengjie.modules.spider_log.service;
 
-import me.zhengjie.modules.article.domain.Article;
-import me.zhengjie.modules.article.service.dto.ArticleDTO;
+import me.zhengjie.modules.spider_log.domain.SpiderLog;
+import me.zhengjie.modules.spider_log.service.dto.SpiderLogDTO;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
@@ -10,8 +10,8 @@ import org.springframework.cache.annotation.Cacheable;
 * @author jie
 * @date 2019-05-19
 */
-@CacheConfig(cacheNames = "article")
-public interface ArticleService {
+@CacheConfig(cacheNames = "spiderLog")
+public interface SpiderLogService {
 
     /**
      * findById
@@ -19,7 +19,7 @@ public interface ArticleService {
      * @return
      */
     @Cacheable(key = "#p0")
-    ArticleDTO findById(Long id);
+    SpiderLogDTO findById(Long id);
 
     /**
      * create
@@ -27,14 +27,14 @@ public interface ArticleService {
      * @return
      */
     @CacheEvict(allEntries = true)
-    ArticleDTO create(Article resources);
+    SpiderLogDTO create(SpiderLog resources);
 
     /**
      * update
      * @param resources
      */
     @CacheEvict(allEntries = true)
-    void update(Article resources);
+    void update(SpiderLog resources);
 
     /**
      * delete

@@ -6,7 +6,7 @@ import java.io.Serializable;
 
 /**
 * @author jie
-* @date 2019-05-17
+* @date 2019-05-19
 */
 @Data
 public class ArticleDTO implements Serializable {
@@ -22,26 +22,27 @@ public class ArticleDTO implements Serializable {
     private String title;
 
     /**
-     * 内容
+     * 摘要
      */
-    private String content;
+    private String conTent;
 
     /**
-     * 创建者
+     * 阅读
      */
-    private String cus;
+    private String reAd;
+
+    /**
+     * 评论
+     */
+    private String comMent;
+
+    /**
+     * 时间
+     */
+    private Timestamp pubTime;
 
     /**
      * 创建时间
      */
     private Timestamp createTime;
-
-    /**
-     * 教师
-     */
-    private String tea;
-
-    private String state;
-
-    private Integer read;
 }
