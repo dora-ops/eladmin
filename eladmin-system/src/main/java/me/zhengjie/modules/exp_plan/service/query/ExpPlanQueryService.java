@@ -71,13 +71,13 @@ public class ExpPlanQueryService {
                 /**
                 * 模糊
                 */
-                list.add(cb.like(root.get("course_name").as(String.class),"%"+expPlan.getCourseName()+"%"));
+                list.add(cb.like(root.get("courseName").as(String.class),"%"+expPlan.getCourseName()+"%"));
             }
             if(!ObjectUtils.isEmpty(expPlan.getExpName())){
                 /**
                 * 模糊
                 */
-                list.add(cb.like(root.get("exp_name").as(String.class),"%"+expPlan.getExpName()+"%"));
+                list.add(cb.like(root.get("expName").as(String.class),"%"+expPlan.getExpName()+"%"));
             }
                 Predicate[] p = new Predicate[list.size()];
                 return cb.and(list.toArray(p));
