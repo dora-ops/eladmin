@@ -71,7 +71,7 @@ public class StuCourseQueryService {
                 /**
                 * 模糊
                 */
-                list.add(cb.like(root.get("exp_name").as(String.class),"%"+stuCourse.getExpName()+"%"));
+                list.add(cb.like(root.get("expName").as(String.class),"%"+stuCourse.getExpName()+"%"));
             }
                 Predicate[] p = new Predicate[list.size()];
                 return cb.and(list.toArray(p));

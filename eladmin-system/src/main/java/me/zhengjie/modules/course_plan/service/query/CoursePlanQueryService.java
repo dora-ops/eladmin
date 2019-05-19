@@ -71,7 +71,7 @@ public class CoursePlanQueryService {
                 /**
                 * 模糊
                 */
-                list.add(cb.like(root.get("course_name").as(String.class),"%"+coursePlan.getCourseName()+"%"));
+                list.add(cb.like(root.get("courseName").as(String.class),"%"+coursePlan.getCourseName()+"%"));
             }
                 Predicate[] p = new Predicate[list.size()];
                 return cb.and(list.toArray(p));
