@@ -37,6 +37,13 @@ public class ${className}Controller {
         return new ResponseEntity(${changeClassName}QueryService.queryAll(resources,pageable),HttpStatus.OK);
     }
 
+    @Log("查询全部${className}")
+    @GetMapping(value = "/queryAll/${changeClassName}")
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    public ResponseEntity query${className}s(${className}DTO resources, Pageable pageable){
+        return new ResponseEntity(${changeClassName}QueryService.queryAll(resources,pageable),HttpStatus.OK);
+    }
+
     @Log("新增${className}")
     @PostMapping(value = "/${changeClassName}")
     @PreAuthorize("hasAnyRole('ADMIN')")
