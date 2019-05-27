@@ -30,7 +30,7 @@ public class ${className}Controller {
 
     private static final String ENTITY_NAME = "${changeClassName}";
 
-    @Log("查询${className}")
+    @Log("分页查询${className}")
     @GetMapping(value = "/${changeClassName}")
     @PreAuthorize("hasAnyRole('ADMIN')")
     public ResponseEntity get${className}s(${className}DTO resources, Pageable pageable){
@@ -40,8 +40,15 @@ public class ${className}Controller {
     @Log("查询全部${className}")
     @GetMapping(value = "/queryAll/${changeClassName}")
     @PreAuthorize("hasAnyRole('ADMIN')")
-    public ResponseEntity query${className}s(${className}DTO resources, Pageable pageable){
-        return new ResponseEntity(${changeClassName}QueryService.queryAll(resources,pageable),HttpStatus.OK);
+    public ResponseEntity query${className}s(${className}DTO resources){
+        return new ResponseEntity(${changeClassName}QueryService.queryAll(resources),HttpStatus.OK);
+    }
+
+    @Log("查询Users")
+    @GetMapping(value = "/findById/${changeClassName}")
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    public ResponseEntity findById(Long id){
+        return new ResponseEntity(${changeClassName}Service.findById(id),HttpStatus.OK);
     }
 
     @Log("新增${className}")

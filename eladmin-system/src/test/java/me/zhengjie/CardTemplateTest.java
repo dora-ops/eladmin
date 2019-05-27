@@ -4,13 +4,11 @@ import cn.hutool.extra.template.Template;
 import cn.hutool.extra.template.TemplateConfig;
 import cn.hutool.extra.template.TemplateEngine;
 import cn.hutool.extra.template.TemplateUtil;
-import me.zhengjie.domain.GenConfig;
 import me.zhengjie.domain.vo.ColumnInfo;
 import me.zhengjie.utils.ColUtil;
 import me.zhengjie.utils.GenUtil;
 import me.zhengjie.utils.StringUtils;
 import org.junit.Test;
-import org.springframework.util.ObjectUtils;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -27,7 +25,7 @@ import java.util.Map;
 /**
  * 既可以记载src\main\resources和src\test\resources
  */
-public class TemplateTest {
+public class CardTemplateTest {
 
     private static final String TIMESTAMP = "Timestamp";
 
@@ -122,6 +120,13 @@ static String[] genAdminModuleList = new String[]{"Controller", "Dto", "Entity",
             }
             columns.add(listMap);
         }
+//        List list=new ArrayList();
+//        list.add("");
+//        list.add("");
+//        map.put("card_columns",list);
+        map.put("title","title");
+        map.put("param","param");
+        map.put("param1","param1");
         map.put("columns", columns);
         map.put("queryColumns", queryColumns);
 

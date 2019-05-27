@@ -4,9 +4,9 @@ import ${package}.domain.${className};
 <#if columns??>
     <#list columns as column>
         <#if column.columnKey = 'UNI'>
-            <#if column_index = 1>
+
 import me.zhengjie.exception.EntityExistException;
-            </#if>
+
         </#if>
     </#list>
 </#if>
@@ -67,9 +67,9 @@ public class ${className}ServiceImpl implements ${className}Service {
 <#if columns??>
     <#list columns as column>
         <#if column.columnKey = 'UNI'>
-        <#if column_index = 1>
+
             ${className} ${changeClassName}1 = null;
-        </#if>
+
         ${changeClassName}1 = ${changeClassName}Repository.findBy${column.capitalColumnName}(resources.get${column.capitalColumnName}());
         if(${changeClassName}1 != null && !${changeClassName}1.getId().equals(${changeClassName}.getId())){
             throw new EntityExistException(${className}.class,"${column.columnName}",resources.get${column.capitalColumnName}());
@@ -77,7 +77,6 @@ public class ${className}ServiceImpl implements ${className}Service {
         </#if>
     </#list>
 </#if>
-        // 此处需自己修改
         resources.setId(${changeClassName}.getId());
         ${changeClassName}Repository.save(resources);
     }

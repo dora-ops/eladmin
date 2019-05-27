@@ -15,6 +15,13 @@ export function queryAll() {
   })
 }
 
+export function findById() {
+  return request({
+  url: 'api/findById/users',
+  method: 'get',
+  })
+}
+
 export function del(id) {
   return request({
     url: 'api/users/' + id,
