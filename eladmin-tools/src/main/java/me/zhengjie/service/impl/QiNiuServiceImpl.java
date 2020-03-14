@@ -1,6 +1,7 @@
 package me.zhengjie.service.impl;
 
-import com.google.gson.Gson;
+import com.alibaba.fastjson.JSON;
+//import com.google.gson.Gson;
 import com.qiniu.common.QiniuException;
 import com.qiniu.http.Response;
 import com.qiniu.storage.BucketManager;
@@ -92,7 +93,7 @@ public class QiNiuServiceImpl implements QiNiuService {
             }
             Response response = uploadManager.put(file.getBytes(), key, upToken);
             //解析上传成功的结果
-            DefaultPutRet putRet = new Gson().fromJson(response.bodyString(), DefaultPutRet.class);
+            DefaultPutRet putRet = JSON.parseObject(response.bodyString(), DefaultPutRet.class);
             //存入数据库
             QiniuContent qiniuContent = new QiniuContent();
             qiniuContent.setBucket(qiniuConfig.getBucket());
