@@ -16,7 +16,7 @@ import java.io.Serializable;
 */
 @Entity
 @Data
-@Table(name="${tableName}")
+@Table(name="`${tableName}`")
 public class ${className} implements Serializable {
 <#if columns??>
     <#list columns as column>
@@ -30,7 +30,7 @@ public class ${className} implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     </#if>
-    @Column(name = "${column.columnName}"<#if column.columnKey = 'UNI'>,unique = true</#if><#if column.isNullable = 'NO' && column.columnKey != 'PRI'>,nullable = false</#if>)
+    @Column(name = "`${column.columnName}`"<#if column.columnKey = 'UNI'>,unique = true</#if><#if column.isNullable = 'NO' && column.columnKey != 'PRI'>,nullable = false</#if>)
     private ${column.columnType} ${column.changeColumnName};
     </#list>
 </#if>
