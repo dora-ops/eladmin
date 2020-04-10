@@ -100,7 +100,7 @@ public class GenUtil {
             listMap.put("columnName",column.getColumnName());
             listMap.put("isNullable",column.getIsNullable());
             listMap.put("columnShow",column.getColumnShow());
-            listMap.put("changeColumnName",StringUtils.toCamelCase(column.getColumnName().toString()));
+            listMap.put("changeColumnName",column.getColumnName().toString());
             listMap.put("capitalColumnName",StringUtils.toCapitalizeCamelCase(column.getColumnName().toString()));
 
             if(!StringUtils.isBlank(column.getColumnQuery())){

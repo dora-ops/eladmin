@@ -28,7 +28,7 @@ public class GeneratorServiceImpl implements GeneratorService {
 
     @Override
     public Object getTables(String name, int[] startEnd) {
-        StringBuilder sql = new StringBuilder("select table_name tableName,create_time createTime from information_schema.tables where table_schema = (select database()) ");
+        StringBuilder sql = new StringBuilder("select table_name tableName,create_time createTime from information_schema.tables where table_schema = ('wechar_news') ");
         if(!ObjectUtils.isEmpty(name)){
             sql.append("and table_name like '%"+name+"%' ");
         }
@@ -43,7 +43,7 @@ public class GeneratorServiceImpl implements GeneratorService {
         for (Object[] obj : result) {
             tableInfos.add(new TableInfo(obj[0],obj[1]));
         }
-        Query query1 = em.createNativeQuery("SELECT COUNT(*) from information_schema.tables where table_schema = (select database())");
+        Query query1 = em.createNativeQuery("SELECT COUNT(*) from information_schema.tables where table_schema = ('wechar_news')");
         Object totalElements = query1.getSingleResult();
         return PageUtil.toPage(tableInfos,totalElements);
     }
@@ -54,7 +54,7 @@ public class GeneratorServiceImpl implements GeneratorService {
         if(!ObjectUtils.isEmpty(name)){
             sql.append("table_name = '"+name+"' ");
         }
-        sql.append("and table_schema = (select database()) order by ordinal_position");
+        sql.append("and table_schema = ('wechar_news') order by ordinal_position");
         Query query = em.createNativeQuery(sql.toString());
         List<Object[]> result = query.getResultList();
         List<ColumnInfo> columnInfos = new ArrayList<>();

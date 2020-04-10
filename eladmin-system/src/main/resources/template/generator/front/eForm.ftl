@@ -5,7 +5,7 @@
         <#assign sel=false/>
         <#if columns??>
             <#list columns as column>
-                <#if column.changeColumnName != 'id'>
+                <#if column.changeColumnName != '_id'>
                 <el-form-item label="<#if column.columnComment != ''>${column.columnComment}<#else>${column.changeColumnName}</#if>" prop="${column.changeColumnName}">
                     <#if column.columnType == 'Timestamp'>
                         <el-date-picker
@@ -14,13 +14,6 @@
                                 style="width: 370px;"
                                 placeholder="选择日期">
                         </el-date-picker>
-                    <#elseif column.columnName?ends_with("_id")>
-                        <#assign sel=true/>
-                        <#assign selName=column.columnName?substring(0,column.columnName?last_index_of("_id"))/>
-                        <el-select v-model="form.${column.changeColumnName}" placeholder="请选择" style="width: 370px;">
-                            <el-option v-for="item in options" :key="item.id" :label="item.name" :value="item.id">
-                            </el-option>
-                        </el-select>
                     <#else >
                         <el-input v-model="form.${column.changeColumnName}" style="width: 370px;"/>
                     </#if>
@@ -38,9 +31,7 @@
 
 <script>
     import {add, edit} from '@/api/${changeClassName}'
-    <#if sel>
-    import { queryAll } from '@/api/selName'
-    </#if>
+    import axios from "axios";
     export default {
         props: {
             isAdd: {
@@ -93,7 +84,13 @@
                 } else this.doEdit()
             },
             doAdd() {
-                add(this.form).then(res => {
+                var sql = "db.collection('${tableName}').add({data: [?]})";
+                delete this.form._id
+                this.dealForm(this.form)
+                this.form._openid='oI4uu4ovj150Zi7ZSD-039RmIOcE'
+                sql = sql.replace("?", JSON.stringify(this.form));
+                this.params = { sql: sql, type: "add" };
+                axios.post("http://localhost:3000/api/base/vx", this.params).then(res => {
                     this.resetForm()
                 this.$notify({
                     title: '添加成功',
@@ -109,7 +106,14 @@
             })
             },
             doEdit() {
-                edit(this.form).then(res => {
+                var sql = "db.collection('${tableName}').doc('?').update({data: ?})";
+                this.form._openid='oI4uu4ovj150Zi7ZSD-039RmIOcE'
+                this.dealForm(this.form)
+                sql = sql
+                        .replace("?", this.form._id)
+                        .replace("?", JSON.stringify(this.form));
+                this.params = { sql: sql, type: "update" };
+                axios.post("http://localhost:3000/api/base/vx", this.params).then(res => {
                     this.resetForm()
                 this.$notify({
                     title: '修改成功',
@@ -134,8 +138,12 @@
                 </#list>
             </#if>
             }
+            },
+            dealForm(form){
+
             }
-        }
+
+    }
     }
 </script>
 

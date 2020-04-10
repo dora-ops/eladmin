@@ -6,6 +6,7 @@
 </template>
 <script>
 import eForm from './form'
+
 export default {
   components: { eForm },
   props: {
@@ -24,7 +25,7 @@ export default {
       _this.form = {
 <#if columns??>
   <#list columns as column>
-        ${column.changeColumnName}: this.data.${column.changeColumnName}<#if column_has_next>,</#if>
+        ${column.changeColumnName}: this.data.${column.changeColumnName} instanceof Object?JSON.stringify(this.data.${column.changeColumnName}):this.data.${column.changeColumnName}<#if column_has_next>,</#if>
   </#list>
 </#if>
       }

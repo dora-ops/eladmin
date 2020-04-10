@@ -30,7 +30,7 @@
             <p>确定删除本条数据吗？</p>
             <div style="text-align: right; margin: 0">
               <el-button size="mini" type="text" @click="$refs[scope.row.id].doClose()">取消</el-button>
-              <el-button :loading="delLoading" type="primary" size="mini" @click="subDelete(scope.row.id)">确定</el-button>
+              <el-button :loading="delLoading" type="primary" size="mini" @click="subDelete(scope.row._id)">确定</el-button>
             </div>
             <el-button slot="reference" type="danger" size="mini">删除</el-button>
           </el-popover>
@@ -56,6 +56,7 @@ import { parseTime } from '@/utils/index'
 </#if>
 import eHeader from './module/header'
 import edit from './module/edit'
+import axios from "axios";
 export default {
   components: { eHeader, edit },
   mixins: [initData],
@@ -75,7 +76,7 @@ export default {
   </#if>
     checkPermission,
     beforeInit() {
-      this.url = 'api/${changeClassName}'
+      this.url = '${tableName}'
       const sort = 'id,desc'
       this.params = { page: this.page, size: this.size, sort: sort }
       <#if hasQuery>
@@ -84,13 +85,16 @@ export default {
       const value = query.value
       if (type && value) { this.params[type] = value }
       </#if>
+        this.params = { sql: "db.collection('${tableName}').get()", type: "query" };
       return true
     },
     subDelete(id) {
       this.delLoading = true
-      del(id).then(res => {
+      var sql = "db.collection('${tableName}').doc('?').remove()";
+      sql = sql.replace("?", id);
+      this.params = { sql: sql, type: "delete" };
+      axios.post("http://localhost:3000/api/base/vx", this.params).then(res => {
         this.delLoading = false
-        this.$refs[id].doClose()
         this.init()
         this.$notify({
           title: '删除成功',
@@ -99,10 +103,21 @@ export default {
         })
       }).catch(err => {
         this.delLoading = false
-        this.$refs[id].doClose()
         console.log(err.response.data.message)
       })
-    }
+    },
+      formatBoolean: function (row, column, cellValue) {
+          var ret = ''
+          if (cellValue) {
+              ret = "true"
+          } else {
+              ret = "false"
+          }
+          if (cellValue instanceof Object){
+              ret=JSON.stringify(cellValue)
+          }
+          return ret;
+      },
   }
 }
 </script>
