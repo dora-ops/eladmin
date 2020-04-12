@@ -80,6 +80,24 @@ public class UserServiceImpl implements UserService {
         user.setDept(resources.getDept());
         user.setJob(resources.getJob());
         user.setPhone(resources.getPhone());
+        user.setSno(resources.getSno());
+        user.setSex(resources.getSex());
+        user.setMajor(resources.getMajor());
+        user.setStartTime(resources.getStartTime());
+        user.setEndTime(resources.getEndTime());
+        user.setAddress(resources.getAddress());
+        user.setTotalScore(resources.getTotalScore());
+        user.setPersonScore(resources.getPersonScore());
+        user.setPindenBaseScore(resources.getPindenBaseScore());
+        user.setPindenDesScore(resources.getPindenDesScore());
+        user.setPindenPrizeScore(resources.getPindenPrizeScore());
+        user.setWenhuaScore(resources.getWenhuaScore());
+        user.setAbilityScore(resources.getAbilityScore());
+//        user.setPBaseScore(resources.getPBaseScore());
+//        user.setPPrizeScore(resources.getPPrizeScore());
+//        user.setPDesScore(resources.getPDesScore());
+//        user.setWScore(resources.getWScore());
+//        user.setAScore(resources.getAScore());
         userRepository.save(user);
     }
 

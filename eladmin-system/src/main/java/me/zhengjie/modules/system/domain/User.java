@@ -2,6 +2,7 @@ package me.zhengjie.modules.system.domain;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
@@ -46,9 +47,46 @@ public class User implements Serializable {
 
     private String password;
 
+    @ColumnDefault("0")
+    @Column(name = "p_base_score",nullable=false,columnDefinition="INT default 0")
+    private String pindenBaseScore;
+
+    @ColumnDefault("0")
+    @Column(name = "p_prize_score",nullable=false,columnDefinition="INT default 0")
+    private String pindenPrizeScore;
+
+    @ColumnDefault("0")
+    @Column(name = "p_des_score",nullable=false,columnDefinition="INT default 0")
+    private String pindenDesScore;
+
+    @ColumnDefault("0")
+    @Column(name = "w_score",nullable=false,columnDefinition="INT default 0")
+    private String wenhuaScore;
+
+    @ColumnDefault("0")
+    @Column(name = "a_score",nullable=false,columnDefinition="INT default 0")
+    private String abilityScore;
+
     @CreationTimestamp
     @Column(name = "create_time")
     private Timestamp createTime;
+
+    @Column(name = "start_time")
+    private Timestamp startTime;
+
+    @Column(name = "end_time")
+    private Timestamp endTime;
+
+    private String address;
+
+    @ColumnDefault("0")
+    @Column(name = "total_score",nullable=false,columnDefinition="INT default 0")
+    private String totalScore;
+
+    @ColumnDefault("0")
+    @Column(name = "person_score",nullable=false,columnDefinition="INT default 0")
+    private String personScore;
+
 
     @Column(name = "last_password_reset_time")
     private Date lastPasswordResetTime;
@@ -64,6 +102,15 @@ public class User implements Serializable {
     @OneToOne
     @JoinColumn(name = "dept_id")
     private Dept dept;
+
+    private String sno;
+
+    private Boolean sex;
+
+    private String major;
+
+
+
 
     @Override
     public String toString() {
