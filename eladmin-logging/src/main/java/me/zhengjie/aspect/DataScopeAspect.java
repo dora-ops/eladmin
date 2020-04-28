@@ -18,9 +18,9 @@ import org.springframework.stereotype.Component;
  * @author jie
  * @date 2018-11-24
  */
-//@Component
-//@Aspect
-//@Slf4j
+@Component
+@Aspect
+@Slf4j
 public class DataScopeAspect {
 
     @Autowired
