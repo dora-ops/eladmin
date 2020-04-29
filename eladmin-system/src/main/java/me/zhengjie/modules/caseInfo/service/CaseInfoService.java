@@ -1,17 +1,17 @@
-package me.zhengjie.modules.people.service;
+package me.zhengjie.modules.caseInfo.service;
 
-import me.zhengjie.modules.people.domain.People;
-import me.zhengjie.modules.people.service.dto.PeopleDTO;
+import me.zhengjie.modules.caseInfo.domain.CaseInfo;
+import me.zhengjie.modules.caseInfo.service.dto.CaseInfoDTO;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 
 /**
 * @author jie
-* @date 2020-04-04
+* @date 2020-04-29
 */
-@CacheConfig(cacheNames = "people")
-public interface PeopleService {
+@CacheConfig(cacheNames = "caseInfo")
+public interface CaseInfoService {
 
     /**
      * findById
@@ -19,7 +19,7 @@ public interface PeopleService {
      * @return
      */
     @Cacheable(key = "#p0")
-    PeopleDTO findById(Long id);
+    CaseInfoDTO findById(Long id);
 
     /**
      * create
@@ -27,14 +27,14 @@ public interface PeopleService {
      * @return
      */
     @CacheEvict(allEntries = true)
-    PeopleDTO create(People resources);
+    CaseInfoDTO create(CaseInfo resources);
 
     /**
      * update
      * @param resources
      */
     @CacheEvict(allEntries = true)
-    void update(People resources);
+    void update(CaseInfo resources);
 
     /**
      * delete

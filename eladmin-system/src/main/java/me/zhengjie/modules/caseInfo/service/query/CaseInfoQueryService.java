@@ -1,10 +1,10 @@
-package me.zhengjie.modules.order.service.query;
+package me.zhengjie.modules.caseInfo.service.query;
 
 import me.zhengjie.utils.PageUtil;
-import me.zhengjie.modules.order.domain.Order;
-import me.zhengjie.modules.order.service.dto.OrderDTO;
-import me.zhengjie.modules.order.repository.OrderRepository;
-import me.zhengjie.modules.order.service.mapper.OrderMapper;
+import me.zhengjie.modules.caseInfo.domain.CaseInfo;
+import me.zhengjie.modules.caseInfo.service.dto.CaseInfoDTO;
+import me.zhengjie.modules.caseInfo.repository.CaseInfoRepository;
+import me.zhengjie.modules.caseInfo.service.mapper.CaseInfoMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;
@@ -27,51 +27,51 @@ import java.util.List;
  * @date 2018-12-03
  */
 @Service
-@CacheConfig(cacheNames = "order")
+@CacheConfig(cacheNames = "caseInfo")
 @Transactional(propagation = Propagation.SUPPORTS, readOnly = true, rollbackFor = Exception.class)
-public class OrderQueryService {
+public class CaseInfoQueryService {
 
     @Autowired
-    private OrderRepository orderRepository;
+    private CaseInfoRepository caseInfoRepository;
 
     @Autowired
-    private OrderMapper orderMapper;
+    private CaseInfoMapper caseInfoMapper;
 
     /**
      * 分页
      */
     @Cacheable(keyGenerator = "keyGenerator")
-    public Object queryAll(OrderDTO order, Pageable pageable){
-        Page<Order> page = orderRepository.findAll(new Spec(order),pageable);
-        return PageUtil.toPage(page.map(orderMapper::toDto));
+    public Object queryAll(CaseInfoDTO caseInfo, Pageable pageable){
+        Page<CaseInfo> page = caseInfoRepository.findAll(new Spec(caseInfo),pageable);
+        return PageUtil.toPage(page.map(caseInfoMapper::toDto));
     }
 
     /**
     * 不分页
     */
     @Cacheable(keyGenerator = "keyGenerator")
-    public Object queryAll(OrderDTO order){
-        return orderMapper.toDto(orderRepository.findAll(new Spec(order)));
+    public Object queryAll(CaseInfoDTO caseInfo){
+        return caseInfoMapper.toDto(caseInfoRepository.findAll(new Spec(caseInfo)));
     }
 
-    class Spec implements Specification<Order> {
+    class Spec implements Specification<CaseInfo> {
 
-        private OrderDTO order;
+        private CaseInfoDTO caseInfo;
 
-        public Spec(OrderDTO order){
-            this.order = order;
+        public Spec(CaseInfoDTO caseInfo){
+            this.caseInfo = caseInfo;
         }
 
         @Override
-        public Predicate toPredicate(Root<Order> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder cb) {
+        public Predicate toPredicate(Root<CaseInfo> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder cb) {
 
             List<Predicate> list = new ArrayList<Predicate>();
 
-            if(!ObjectUtils.isEmpty(order.getUid())){
+            if(!ObjectUtils.isEmpty(caseInfo.getName())){
                 /**
-                * 精确
+                * 模糊
                 */
-                list.add(cb.equal(root.get("uid").as(String.class),order.getUid()));
+                list.add(cb.like(root.get("name").as(String.class),"%"+caseInfo.getName()+"%"));
             }
                 Predicate[] p = new Predicate[list.size()];
                 return cb.and(list.toArray(p));

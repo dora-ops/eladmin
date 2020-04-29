@@ -38,9 +38,7 @@
 
 <script>
     import {add, edit} from '@/api/${changeClassName}'
-    <#if sel>
-    import { queryAll } from '@/api/selName'
-    </#if>
+
     export default {
         props: {
             isAdd: {
@@ -75,13 +73,6 @@
                 options:[]
             }
         },
-    <#if sel>
-        created() {
-    queryAll().then(res => {
-        this.options=res.content
-    })
-        },
-    </#if>
         methods: {
             cancel() {
                 this.resetForm()
