@@ -1,4 +1,4 @@
-package me.zhengjie.modules.caseInfo.service.dto;
+package me.zhengjie.modules.regInfo.service.dto;
 
 import lombok.Data;
 import java.sql.Timestamp;
@@ -6,10 +6,10 @@ import java.io.Serializable;
 
 /**
 * @author jie
-* @date 2020-04-29
+* @date 2020-04-30
 */
 @Data
-public class CaseInfoDTO implements Serializable {
+public class RegInfoDTO implements Serializable {
 
     /**
      * 案件编号
@@ -32,19 +32,14 @@ public class CaseInfoDTO implements Serializable {
     private String imp;
 
     /**
-     * 处理结果
-     */
-    private String result;
-
-    /**
      * 案件简述
      */
     private String summary;
 
     /**
-     * 负责人警号
+     * 录入时间
      */
-    private Long uid;
+    private Timestamp regTime;
 
     /**
      * 负责人姓名
@@ -52,19 +47,19 @@ public class CaseInfoDTO implements Serializable {
     private String uname;
 
     /**
+     * 负责人警号
+     */
+    private Long uid;
+
+    /**
      * 审核人警号
      */
-    private Long dealId;
+    private String dealUid;
 
     /**
-     * 审核人姓名
+     * 提供联系
      */
-    private String dealName;
-
-    /**
-     * 案件详情
-     */
-    private String detail;
+    private String provider;
 
     /**
      * 发生时间
@@ -72,12 +67,12 @@ public class CaseInfoDTO implements Serializable {
     private Timestamp startTime;
 
     /**
-     * 结案时间
+     * 审核人姓名
      */
-    private Timestamp endTime;
+    private String dealUname;
 
     /**
-     * 案件状态
+     * 案件编号
      */
-    private String status;
+    private Integer cid;
 }

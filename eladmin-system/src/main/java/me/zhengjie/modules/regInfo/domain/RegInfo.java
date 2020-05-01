@@ -1,4 +1,4 @@
-package me.zhengjie.modules.caseInfo.domain;
+package me.zhengjie.modules.regInfo.domain;
 
 import lombok.Data;
 import javax.persistence.*;
@@ -7,12 +7,12 @@ import java.io.Serializable;
 
 /**
 * @author jie
-* @date 2020-04-29
+* @date 2020-04-30
 */
 @Entity
 @Data
-@Table(name="`case_info`")
-public class CaseInfo implements Serializable {
+@Table(name="`reg_info`")
+public class RegInfo implements Serializable {
 
     /**
      * 案件编号
@@ -37,14 +37,8 @@ public class CaseInfo implements Serializable {
     /**
      * 重要程度
      */
-    @Column(name = "`imp`",nullable = false)
+    @Column(name = "`imp`")
     private String imp;
-
-    /**
-     * 处理结果
-     */
-    @Column(name = "`result`")
-    private String result;
 
     /**
      * 案件简述
@@ -53,34 +47,34 @@ public class CaseInfo implements Serializable {
     private String summary;
 
     /**
+     * 录入时间
+     */
+    @Column(name = "`reg_time`",nullable = false)
+    private Timestamp regTime;
+
+    /**
+     * 负责人姓名
+     */
+    @Column(name = "`uname`",nullable = false)
+    private String uname;
+
+    /**
      * 负责人警号
      */
     @Column(name = "`uid`",nullable = false)
     private Long uid;
 
     /**
-     * 负责人姓名
-     */
-    @Column(name = "`uname`")
-    private String uname;
-
-    /**
      * 审核人警号
      */
-    @Column(name = "`deal_id`")
-    private Long dealId;
+    @Column(name = "`deal_uid`")
+    private String dealUid;
 
     /**
-     * 审核人姓名
+     * 提供联系
      */
-    @Column(name = "`deal_name`")
-    private String dealName;
-
-    /**
-     * 案件详情
-     */
-    @Column(name = "`detail`",nullable = false)
-    private String detail;
+    @Column(name = "`provider`")
+    private String provider;
 
     /**
      * 发生时间
@@ -89,14 +83,14 @@ public class CaseInfo implements Serializable {
     private Timestamp startTime;
 
     /**
-     * 结案时间
+     * 审核人姓名
      */
-    @Column(name = "`end_time`",nullable = false)
-    private Timestamp endTime;
+    @Column(name = "`deal_uname`")
+    private String dealUname;
 
     /**
-     * 案件状态
+     * 案件编号
      */
-    @Column(name = "`status`")
-    private String status;
+    @Column(name = "`cid`",nullable = false)
+    private Integer cid;
 }
