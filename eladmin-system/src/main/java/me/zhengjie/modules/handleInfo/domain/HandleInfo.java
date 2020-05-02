@@ -7,7 +7,7 @@ import java.io.Serializable;
 
 /**
 * @author jie
-* @date 2020-04-30
+* @date 2020-05-02
 */
 @Entity
 @Data
@@ -40,7 +40,7 @@ public class HandleInfo implements Serializable {
     /**
      * 处理结果
      */
-    @Column(name = "`result`",nullable = false)
+    @Column(name = "`result`")
     private String result;
 
     /**

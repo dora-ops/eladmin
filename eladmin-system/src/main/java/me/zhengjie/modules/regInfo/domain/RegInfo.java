@@ -7,7 +7,7 @@ import java.io.Serializable;
 
 /**
 * @author jie
-* @date 2020-04-30
+* @date 2020-05-02
 */
 @Entity
 @Data
@@ -91,6 +91,6 @@ public class RegInfo implements Serializable {
     /**
      * 案件编号
      */
-    @Column(name = "`cid`",nullable = false)
+    @Column(name = "`cid`")
     private Integer cid;
 }

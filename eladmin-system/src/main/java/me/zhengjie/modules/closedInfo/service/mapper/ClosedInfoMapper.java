@@ -8,7 +8,7 @@ import org.mapstruct.ReportingPolicy;
 
 /**
 * @author jie
-* @date 2020-04-30
+* @date 2020-05-02
 */
 @Mapper(componentModel = "spring",uses = {},unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface ClosedInfoMapper extends EntityMapper<ClosedInfoDTO, ClosedInfo> {

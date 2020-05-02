@@ -67,11 +67,53 @@ public class InvestigationInfoQueryService {
 
             List<Predicate> list = new ArrayList<Predicate>();
 
+            if(!ObjectUtils.isEmpty(investigationInfo.getKind())){
+                /**
+                * 精确
+                */
+                list.add(cb.equal(root.get("kind").as(String.class),investigationInfo.getKind()));
+            }
             if(!ObjectUtils.isEmpty(investigationInfo.getName())){
                 /**
                 * 模糊
                 */
                 list.add(cb.like(root.get("name").as(String.class),"%"+investigationInfo.getName()+"%"));
+            }
+            if(!ObjectUtils.isEmpty(investigationInfo.getUname())){
+                /**
+                * 模糊
+                */
+                list.add(cb.like(root.get("uname").as(String.class),"%"+investigationInfo.getUname()+"%"));
+            }
+            if(!ObjectUtils.isEmpty(investigationInfo.getUid())){
+                /**
+                * 精确
+                */
+                list.add(cb.equal(root.get("uid").as(Long.class),investigationInfo.getUid()));
+            }
+            if(!ObjectUtils.isEmpty(investigationInfo.getDealUid())){
+                /**
+                * 精确,
+                */
+                list.add(cb.equal(root.get("dealUid").as(String.class),investigationInfo.getDealUid()));
+            }
+            if(!ObjectUtils.isEmpty(investigationInfo.getContent())){
+                /**
+                * 模糊
+                */
+                list.add(cb.like(root.get("content").as(String.class),"%"+investigationInfo.getContent()+"%"));
+            }
+            if(!ObjectUtils.isEmpty(investigationInfo.getDealUname())){
+                /**
+                * 模糊
+                */
+                list.add(cb.like(root.get("deal_uname").as(String.class),"%"+investigationInfo.getDealUname()+"%"));
+            }
+            if(!ObjectUtils.isEmpty(investigationInfo.getCid())){
+                /**
+                * 精确
+                */
+                list.add(cb.equal(root.get("cid").as(Integer.class),investigationInfo.getCid()));
             }
                 Predicate[] p = new Predicate[list.size()];
                 return cb.and(list.toArray(p));

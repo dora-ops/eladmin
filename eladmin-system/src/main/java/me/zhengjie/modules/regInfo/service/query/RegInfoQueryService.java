@@ -67,11 +67,59 @@ public class RegInfoQueryService {
 
             List<Predicate> list = new ArrayList<Predicate>();
 
+            if(!ObjectUtils.isEmpty(regInfo.getKind())){
+                /**
+                * 精确
+                */
+                list.add(cb.equal(root.get("kind").as(String.class),regInfo.getKind()));
+            }
             if(!ObjectUtils.isEmpty(regInfo.getName())){
                 /**
                 * 模糊
                 */
                 list.add(cb.like(root.get("name").as(String.class),"%"+regInfo.getName()+"%"));
+            }
+            if(!ObjectUtils.isEmpty(regInfo.getImp())){
+                /**
+                * 精确
+                */
+                list.add(cb.equal(root.get("imp").as(String.class),regInfo.getImp()));
+            }
+            if(!ObjectUtils.isEmpty(regInfo.getSummary())){
+                /**
+                * 模糊
+                */
+                list.add(cb.like(root.get("summary").as(String.class),"%"+regInfo.getSummary()+"%"));
+            }
+            if(!ObjectUtils.isEmpty(regInfo.getUname())){
+                /**
+                * 模糊
+                */
+                list.add(cb.like(root.get("uname").as(String.class),"%"+regInfo.getUname()+"%"));
+            }
+            if(!ObjectUtils.isEmpty(regInfo.getUid())){
+                /**
+                * 精确
+                */
+                list.add(cb.equal(root.get("uid").as(Long.class),regInfo.getUid()));
+            }
+            if(!ObjectUtils.isEmpty(regInfo.getDealUid())){
+                /**
+                * 精确
+                */
+                list.add(cb.equal(root.get("dealUid").as(String.class),regInfo.getDealUid()));
+            }
+            if(!ObjectUtils.isEmpty(regInfo.getProvider())){
+                /**
+                * 模糊
+                */
+                list.add(cb.like(root.get("provider").as(String.class),"%"+regInfo.getProvider()+"%"));
+            }
+            if(!ObjectUtils.isEmpty(regInfo.getDealUname())){
+                /**
+                * 模糊
+                */
+                list.add(cb.like(root.get("deal_uname").as(String.class),"%"+regInfo.getDealUname()+"%"));
             }
                 Predicate[] p = new Predicate[list.size()];
                 return cb.and(list.toArray(p));

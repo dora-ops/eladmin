@@ -7,7 +7,7 @@ import java.io.Serializable;
 
 /**
 * @author jie
-* @date 2020-04-29
+* @date 2020-05-02
 */
 @Entity
 @Data
@@ -79,7 +79,7 @@ public class CaseInfo implements Serializable {
     /**
      * 案件详情
      */
-    @Column(name = "`detail`",nullable = false)
+    @Column(name = "`detail`")
     private String detail;
 
     /**

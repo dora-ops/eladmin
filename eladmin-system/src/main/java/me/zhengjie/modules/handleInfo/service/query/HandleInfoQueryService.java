@@ -67,11 +67,65 @@ public class HandleInfoQueryService {
 
             List<Predicate> list = new ArrayList<Predicate>();
 
+            if(!ObjectUtils.isEmpty(handleInfo.getId())){
+                /**
+                * 精确
+                */
+                list.add(cb.equal(root.get("id").as(Long.class),handleInfo.getId()));
+            }
+            if(!ObjectUtils.isEmpty(handleInfo.getKind())){
+                /**
+                * 精确
+                */
+                list.add(cb.equal(root.get("kind").as(String.class),handleInfo.getKind()));
+            }
             if(!ObjectUtils.isEmpty(handleInfo.getName())){
                 /**
                 * 模糊
                 */
                 list.add(cb.like(root.get("name").as(String.class),"%"+handleInfo.getName()+"%"));
+            }
+            if(!ObjectUtils.isEmpty(handleInfo.getImp())){
+                /**
+                * 精确
+                */
+                list.add(cb.equal(root.get("imp").as(String.class),handleInfo.getImp()));
+            }
+            if(!ObjectUtils.isEmpty(handleInfo.getResult())){
+                /**
+                * 模糊
+                */
+                list.add(cb.like(root.get("result").as(String.class),"%"+handleInfo.getResult()+"%"));
+            }
+            if(!ObjectUtils.isEmpty(handleInfo.getUname())){
+                /**
+                * 模糊
+                */
+                list.add(cb.like(root.get("uname").as(String.class),"%"+handleInfo.getUname()+"%"));
+            }
+            if(!ObjectUtils.isEmpty(handleInfo.getUid())){
+                /**
+                * 精确
+                */
+                list.add(cb.equal(root.get("uid").as(Long.class),handleInfo.getUid()));
+            }
+            if(!ObjectUtils.isEmpty(handleInfo.getDealUid())){
+                /**
+                * 精确
+                */
+                list.add(cb.equal(root.get("deal_uid").as(String.class),handleInfo.getDealUid()));
+            }
+            if(!ObjectUtils.isEmpty(handleInfo.getDealUname())){
+                /**
+                * 模糊
+                */
+                list.add(cb.like(root.get("deal_uname").as(String.class),"%"+handleInfo.getDealUname()+"%"));
+            }
+            if(!ObjectUtils.isEmpty(handleInfo.getCid())){
+                /**
+                * 精确
+                */
+                list.add(cb.equal(root.get("cid").as(Integer.class),handleInfo.getCid()));
             }
                 Predicate[] p = new Predicate[list.size()];
                 return cb.and(list.toArray(p));

@@ -67,11 +67,53 @@ public class AwardInfoQueryService {
 
             List<Predicate> list = new ArrayList<Predicate>();
 
+            if(!ObjectUtils.isEmpty(awardInfo.getId())){
+                /**
+                * 精确
+                */
+                list.add(cb.equal(root.get("id").as(Long.class),awardInfo.getId()));
+            }
+            if(!ObjectUtils.isEmpty(awardInfo.getCid())){
+                /**
+                * 精确
+                */
+                list.add(cb.equal(root.get("cid").as(Long.class),awardInfo.getCid()));
+            }
             if(!ObjectUtils.isEmpty(awardInfo.getName())){
                 /**
                 * 模糊
                 */
                 list.add(cb.like(root.get("name").as(String.class),"%"+awardInfo.getName()+"%"));
+            }
+            if(!ObjectUtils.isEmpty(awardInfo.getUname())){
+                /**
+                * 模糊
+                */
+                list.add(cb.like(root.get("uname").as(String.class),"%"+awardInfo.getUname()+"%"));
+            }
+            if(!ObjectUtils.isEmpty(awardInfo.getUid())){
+                /**
+                * 精确
+                */
+                list.add(cb.equal(root.get("uid").as(Long.class),awardInfo.getUid()));
+            }
+            if(!ObjectUtils.isEmpty(awardInfo.getDealUid())){
+                /**
+                * 精确
+                */
+                list.add(cb.equal(root.get("dealUid").as(String.class),awardInfo.getDealUid()));
+            }
+            if(!ObjectUtils.isEmpty(awardInfo.getContent())){
+                /**
+                * 模糊
+                */
+                list.add(cb.like(root.get("content").as(String.class),"%"+awardInfo.getContent()+"%"));
+            }
+            if(!ObjectUtils.isEmpty(awardInfo.getHandleUname())){
+                /**
+                * 模糊
+                */
+                list.add(cb.like(root.get("handleUname").as(String.class),"%"+awardInfo.getHandleUname()+"%"));
             }
                 Predicate[] p = new Predicate[list.size()];
                 return cb.and(list.toArray(p));

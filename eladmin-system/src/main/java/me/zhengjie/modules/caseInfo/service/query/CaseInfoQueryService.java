@@ -67,11 +67,77 @@ public class CaseInfoQueryService {
 
             List<Predicate> list = new ArrayList<Predicate>();
 
+            if(!ObjectUtils.isEmpty(caseInfo.getId())){
+                /**
+                * 精确
+                */
+                list.add(cb.equal(root.get("id").as(Long.class),caseInfo.getId()));
+            }
+            if(!ObjectUtils.isEmpty(caseInfo.getKind())){
+                /**
+                * 精确
+                */
+                list.add(cb.equal(root.get("kind").as(String.class),caseInfo.getKind()));
+            }
             if(!ObjectUtils.isEmpty(caseInfo.getName())){
                 /**
                 * 模糊
                 */
                 list.add(cb.like(root.get("name").as(String.class),"%"+caseInfo.getName()+"%"));
+            }
+            if(!ObjectUtils.isEmpty(caseInfo.getImp())){
+                /**
+                * 精确
+                */
+                list.add(cb.equal(root.get("imp").as(String.class),caseInfo.getImp()));
+            }
+            if(!ObjectUtils.isEmpty(caseInfo.getResult())){
+                /**
+                * 模糊
+                */
+                list.add(cb.like(root.get("result").as(String.class),"%"+caseInfo.getResult()+"%"));
+            }
+            if(!ObjectUtils.isEmpty(caseInfo.getSummary())){
+                /**
+                * 模糊
+                */
+                list.add(cb.like(root.get("summary").as(String.class),"%"+caseInfo.getSummary()+"%"));
+            }
+            if(!ObjectUtils.isEmpty(caseInfo.getUid())){
+                /**
+                * 精确
+                */
+                list.add(cb.equal(root.get("uid").as(Long.class),caseInfo.getUid()));
+            }
+            if(!ObjectUtils.isEmpty(caseInfo.getUname())){
+                /**
+                * 模糊
+                */
+                list.add(cb.like(root.get("uname").as(String.class),"%"+caseInfo.getUname()+"%"));
+            }
+            if(!ObjectUtils.isEmpty(caseInfo.getDealId())){
+                /**
+                * 精确
+                */
+                list.add(cb.equal(root.get("deal_id").as(Long.class),caseInfo.getDealId()));
+            }
+            if(!ObjectUtils.isEmpty(caseInfo.getDealName())){
+                /**
+                * 模糊
+                */
+                list.add(cb.like(root.get("deal_name").as(String.class),"%"+caseInfo.getDealName()+"%"));
+            }
+            if(!ObjectUtils.isEmpty(caseInfo.getDetail())){
+                /**
+                * 模糊
+                */
+                list.add(cb.like(root.get("detail").as(String.class),"%"+caseInfo.getDetail()+"%"));
+            }
+            if(!ObjectUtils.isEmpty(caseInfo.getStatus())){
+                /**
+                * 精确
+                */
+                list.add(cb.equal(root.get("status").as(String.class),caseInfo.getStatus()));
             }
                 Predicate[] p = new Predicate[list.size()];
                 return cb.and(list.toArray(p));

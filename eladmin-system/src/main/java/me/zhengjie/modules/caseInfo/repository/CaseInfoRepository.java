@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
 /**
 * @author jie
-* @date 2020-04-29
+* @date 2020-05-02
 */
 public interface CaseInfoRepository extends JpaRepository<CaseInfo, Long>, JpaSpecificationExecutor {
 }

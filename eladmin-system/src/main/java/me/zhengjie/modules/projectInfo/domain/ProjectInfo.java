@@ -7,7 +7,7 @@ import java.io.Serializable;
 
 /**
 * @author jie
-* @date 2020-04-30
+* @date 2020-05-02
 */
 @Entity
 @Data
@@ -61,7 +61,7 @@ public class ProjectInfo implements Serializable {
     /**
      * 侦查详情
      */
-    @Column(name = "`content`",nullable = false)
+    @Column(name = "`content`")
     private String content;
 
     /**

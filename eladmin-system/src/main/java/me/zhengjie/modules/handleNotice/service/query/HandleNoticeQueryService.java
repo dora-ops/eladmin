@@ -67,11 +67,47 @@ public class HandleNoticeQueryService {
 
             List<Predicate> list = new ArrayList<Predicate>();
 
+            if(!ObjectUtils.isEmpty(handleNotice.getId())){
+                /**
+                * 精确
+                */
+                list.add(cb.equal(root.get("id").as(Long.class),handleNotice.getId()));
+            }
+            if(!ObjectUtils.isEmpty(handleNotice.getCid())){
+                /**
+                * 精确
+                */
+                list.add(cb.equal(root.get("cid").as(Long.class),handleNotice.getCid()));
+            }
             if(!ObjectUtils.isEmpty(handleNotice.getName())){
                 /**
                 * 模糊
                 */
                 list.add(cb.like(root.get("name").as(String.class),"%"+handleNotice.getName()+"%"));
+            }
+            if(!ObjectUtils.isEmpty(handleNotice.getUname())){
+                /**
+                * 模糊
+                */
+                list.add(cb.like(root.get("uname").as(String.class),"%"+handleNotice.getUname()+"%"));
+            }
+            if(!ObjectUtils.isEmpty(handleNotice.getUid())){
+                /**
+                * 精确
+                */
+                list.add(cb.equal(root.get("uid").as(Long.class),handleNotice.getUid()));
+            }
+            if(!ObjectUtils.isEmpty(handleNotice.getContent())){
+                /**
+                * 模糊
+                */
+                list.add(cb.like(root.get("content").as(String.class),"%"+handleNotice.getContent()+"%"));
+            }
+            if(!ObjectUtils.isEmpty(handleNotice.getHandleUname())){
+                /**
+                * 模糊
+                */
+                list.add(cb.like(root.get("handle_uname").as(String.class),"%"+handleNotice.getHandleUname()+"%"));
             }
                 Predicate[] p = new Predicate[list.size()];
                 return cb.and(list.toArray(p));
