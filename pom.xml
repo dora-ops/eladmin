@@ -15,6 +15,8 @@
         <module>eladmin-system</module>
         <module>eladmin-tools</module>
         <module>eladmin-generator</module>
+        <module>case</module>
+        <module>tomcat</module>
     </modules>
 
     <name>el-admin</name>
