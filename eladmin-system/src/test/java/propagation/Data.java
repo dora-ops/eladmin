@@ -1,7 +1,8 @@
 package propagation;
 
-import com.biz.po.Student;
-import com.biz.po.Teacher;
+
+import propagation.po.Student;
+import propagation.po.Teacher;
 
 /**
  * Data

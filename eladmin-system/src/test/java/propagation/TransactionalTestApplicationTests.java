@@ -1,12 +1,18 @@
 package propagation;
 
-import com.biz.service.student.StudentService;
-import com.biz.service.teacher.TeacherService;
+
+import cn.hutool.core.util.HexUtil;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+import propagation.service.student.StudentService;
+import propagation.service.teacher.TeacherService;
+
+import java.io.UnsupportedEncodingException;
+
+import static cn.hutool.core.convert.Convert.toHex;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -117,4 +123,9 @@ public class TransactionalTestApplicationTests {
         Data data = new Data();
         studentService.addStudent7(data.getStudent(),data.getTeacher());
     }
+
+
+
+
+
 }

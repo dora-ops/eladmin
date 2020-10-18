@@ -1,5 +1,6 @@
 package me.zhengjie;
 
+import cn.hutool.core.util.HexUtil;
 import cn.hutool.extra.template.Template;
 import cn.hutool.extra.template.TemplateConfig;
 import cn.hutool.extra.template.TemplateEngine;
@@ -18,6 +19,7 @@ import javax.persistence.Persistence;
 import javax.persistence.Query;
 import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -206,6 +208,38 @@ static String[] genAdminModuleList = new String[]{"Controller", "Dto", "Entity",
             return  File.separator + "module" + File.separator + "form.vue";
         }
         return null;
+    }
+
+
+    @Test
+    public void test(){
+        int c=0;
+        c=c++;
+        System.out.println(c);
+    }
+
+    @Test
+    public  void encode() {
+        String name = "I am 君山";
+        toHex(name.getBytes());
+        try {
+            byte[] iso8859 = name.getBytes("ISO-8859-1");
+            toHex(iso8859);
+            byte[] gb2312 = name.getBytes("GB2312");
+            toHex(gb2312);
+            byte[] gbk = name.getBytes("GBK");
+            toHex(gbk);
+            byte[] utf16 = name.getBytes("UTF-16");
+            toHex(utf16);
+            byte[] utf8 = name.getBytes("UTF-8");
+            toHex(utf8);
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void toHex(byte[] bytes){
+        System.out.println("bytes = [" + HexUtil.encodeHexStr(bytes) + "]");
     }
 
 }

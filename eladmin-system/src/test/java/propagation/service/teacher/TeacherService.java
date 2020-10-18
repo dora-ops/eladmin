@@ -1,6 +1,7 @@
 package propagation.service.teacher;
 
-import com.biz.po.Teacher;
+
+import propagation.po.Teacher;
 
 /**
  * TeacherService

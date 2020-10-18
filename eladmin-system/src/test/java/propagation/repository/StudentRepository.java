@@ -1,7 +1,8 @@
 package propagation.repository;
 
-import com.biz.po.Student;
+
 import org.springframework.data.jpa.repository.JpaRepository;
+import propagation.po.Student;
 
 /**
  * StudentRepository
