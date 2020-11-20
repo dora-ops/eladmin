@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
+import okhttp3.*;
 import org.openqa.selenium.Cookie;
 
 import java.io.*;
@@ -31,7 +32,25 @@ public class HttpUtil {
         throw new RuntimeException("不支持请求方式");
     }
 
-    public static String sendPost(String curl, String param,String coockie,String referer) {
+    public static Response requestOkHttp(JSONObject jsonObject, Cookie ctoken, String coockieStr) throws  IOException {
+        OkHttpClient client = new OkHttpClient();
+        String method = jsonObject.getString("method");
+        String url = jsonObject.getString("url");
+        String referer=jsonObject.getString("referer");
+        MediaType mediaType = MediaType.parse("text/plain;charset=UTF-8");
+        RequestBody body = RequestBody.create(mediaType,jsonObject.getJSONObject("body").toJSONString() );
+        Request request = new Request.Builder()
+                .url(url+ ctoken.getValue())
+                .post(body)
+                .addHeader("referer", referer)
+                .addHeader("cookie", coockieStr)
+                .build();
+
+        Response response = client.newCall(request).execute();
+        return response;
+    }
+
+    public static String sendPost(String curl, String param,String coockie,String referer,String method) {
         String result = "";// 返回的结果
         BufferedReader in = null;// 读取响应输入流
         try {
@@ -42,7 +61,7 @@ public class HttpUtil {
 
             connection.setDoOutput(true); //是否打开outputStream 相对于程序，即我们向远程服务器写入数据，默认为false，不打开
             connection.setDoInput(true);  //输入流，获取到返回的响应内容， 默认为true，所以get请求时可以不设置这个连接信息
-            connection.setRequestMethod("POST"); //发送请求的方式
+            connection.setRequestMethod(method); //发送请求的方式
             connection.setUseCaches(false); //不使用缓存
             connection.setInstanceFollowRedirects(true); //重定向，一般浏览器才需要
             connection.setRequestProperty("Content-Type",
