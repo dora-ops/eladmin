@@ -37,10 +37,10 @@ public class CardTemplateTest {
     //数据库
 //    static String database = "test";
     static String database = "illustrator";
-//    前端
+    //    前端
     static String[] genModuleList = new String[]{"index", "header", "eForm", "edit", "api"};
-//    后端
-static String[] genAdminModuleList = new String[]{"Controller", "Dto", "Entity", "Mapper", "QueryService","Repository","Service","ServiceImpl"};
+    //    后端
+    static String[] genAdminModuleList = new String[]{"Controller", "Dto", "Entity", "Mapper", "QueryService", "Repository", "Service", "ServiceImpl"};
     //    是否模糊查询和精确查询
     static Map queryMap = new HashMap();
 
@@ -53,9 +53,10 @@ static String[] genAdminModuleList = new String[]{"Controller", "Dto", "Entity",
     String suffix = ".vue";
     //生成路径
 //    String genPath="E:\\前后端分离\\common-system\\code\\eladmin\\eladmin-system\\src\\test\\java\\me\\zhengjie\\";
-   static String genFrontPath = "E:\\study\\eladmin\\eladmin-system\\src\\test\\java\\me\\zhengjie\\";
+    static String genFrontPath = "E:\\study\\eladmin\\eladmin-system\\src\\test\\java\\me\\zhengjie\\";
     static String genApiPath = "E:\\study\\eladmin\\eladmin-system\\src\\test\\java\\me\\zhengjie\\";
-    static String genPath = "E:\\study\\eladmin\\eladmin-system\\src\\main\\java\\me\\zhengjie\\modules\\"+tableName+"\\";
+    static String genPath = "E:\\study\\eladmin\\eladmin-system\\src\\main\\java\\me\\zhengjie\\modules\\" + tableName + "\\";
+
     @Test
     public void contextLoads() throws IOException {
         EntityManagerFactory factory = Persistence.createEntityManagerFactory("mysqlJPA");
@@ -124,9 +125,9 @@ static String[] genAdminModuleList = new String[]{"Controller", "Dto", "Entity",
 //        list.add("");
 //        list.add("");
 //        map.put("card_columns",list);
-        map.put("title","title");
-        map.put("param","param");
-        map.put("param1","param1");
+        map.put("title", "title");
+        map.put("param", "param");
+        map.put("param1", "param1");
         map.put("columns", columns);
         map.put("queryColumns", queryColumns);
 
@@ -136,14 +137,14 @@ static String[] genAdminModuleList = new String[]{"Controller", "Dto", "Entity",
         for (String genModule : genModuleList) {
             String subpath = "generator/front/" + genModule + ".ftl";
             Template template = engine.getTemplate(subpath);
-            File file = new File(getFrontFilePath(genModule,map.get("changeClassName").toString()));
+            File file = new File(getFrontFilePath(genModule, map.get("changeClassName").toString()));
 
             GenUtil.genFile(file, template, map);
         }
         for (String genModule : genAdminModuleList) {
             String subpath = "generator/admin/" + genModule + ".ftl";
             Template template = engine.getTemplate(subpath);
-            File file = new File(getAdminFilePath(genModule,className));
+            File file = new File(getAdminFilePath(genModule, className));
 
             GenUtil.genFile(file, template, map);
         }
@@ -151,9 +152,8 @@ static String[] genAdminModuleList = new String[]{"Controller", "Dto", "Entity",
     }
 
 
-
     public static String getAdminFilePath(String templateName, String className) {
-        String packagePath =genPath;
+        String packagePath = genPath;
         if ("Entity".equals(templateName)) {
             return packagePath + "domain" + File.separator + className + ".java";
         }
@@ -190,9 +190,9 @@ static String[] genAdminModuleList = new String[]{"Controller", "Dto", "Entity",
     }
 
     public static String getFrontFilePath(String templateName, String apiName) {
-        String path =genFrontPath;
+        String path = genFrontPath;
         if ("api".equals(templateName)) {
-            return genApiPath+ File.separator + apiName + ".js";
+            return genApiPath + File.separator + apiName + ".js";
         }
 
         if ("index".equals(templateName)) {
@@ -200,15 +200,15 @@ static String[] genAdminModuleList = new String[]{"Controller", "Dto", "Entity",
         }
 
         if ("header".equals(templateName)) {
-            return  File.separator + "module" + File.separator + "header.vue";
+            return File.separator + "module" + File.separator + "header.vue";
         }
 
         if ("edit".equals(templateName)) {
-            return  File.separator + "module" + File.separator + "edit.vue";
+            return File.separator + "module" + File.separator + "edit.vue";
         }
 
         if ("eForm".equals(templateName)) {
-            return  File.separator + "module" + File.separator + "form.vue";
+            return File.separator + "module" + File.separator + "form.vue";
         }
         return null;
     }

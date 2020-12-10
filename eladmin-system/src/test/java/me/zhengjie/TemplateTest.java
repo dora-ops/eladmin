@@ -25,6 +25,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.locks.LockSupport;
 
 /**
  * 既可以记载src\main\resources和src\test\resources
@@ -213,9 +214,9 @@ static String[] genAdminModuleList = new String[]{"Controller", "Dto", "Entity",
 
     @Test
     public void test(){
-        int c=0;
-        c=c++;
-        System.out.println(c);
+        LockSupport.unpark(Thread.currentThread());
+        LockSupport.park();
+        System.out.println("123");
     }
 
     @Test
