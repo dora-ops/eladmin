@@ -13,7 +13,7 @@ public class DBUtil {
     static{
         try {
             //读取配置文件
-            InputStream in = DBUtil.class.getResourceAsStream("db.properties");
+            InputStream in = DBUtil.class.getClassLoader().getResourceAsStream("db.properties");
             Properties properties = new Properties();
             //加载配置文件
             properties.load(in);

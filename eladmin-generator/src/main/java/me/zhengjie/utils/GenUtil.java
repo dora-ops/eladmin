@@ -224,6 +224,23 @@ public class GenUtil {
         return null;
     }
 
+    /**
+     *
+     * @param genModule
+     * @param genStr
+     * @param map
+     * @throws IOException
+     */
+    public static void genFile(String genModule,String genStr, Map<String,Object> map) throws IOException {
+        //path为根目录，subpath改目录下的模板文件
+        TemplateEngine engine = TemplateUtil.createEngine(new TemplateConfig("template", TemplateConfig.ResourceMode.CLASSPATH));
+        String subpath = "generator/front/" + genModule + ".ftl";
+        Template template = engine.getTemplate(subpath);
+        genFile(new File(genStr),template,map);
+    }
+
+
+
     public static void genFile(File file,Template template,Map<String,Object> map) throws IOException {
         // 生成目标文件
         Writer writer = null;
