@@ -14,4 +14,12 @@
     <version>1.0.0</version>
     <packaging>jar</packaging>
 
+    <dependencies>
+        <dependency>
+            <groupId>ch.ethz.ganymed</groupId>
+            <artifactId>ganymed-ssh2</artifactId>
+            <version>262</version>
+        </dependency>
+    </dependencies>
+
 </project>
