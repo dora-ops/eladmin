@@ -143,6 +143,16 @@
             <artifactId>selenium-server</artifactId>
             <version>3.14.0</version>
         </dependency>
+        <dependency>
+            <groupId>ch.ethz.ganymed</groupId>
+            <artifactId>ganymed-ssh2</artifactId>
+            <version>262</version>
+        </dependency>
+        <dependency>
+            <groupId>com.jcraft</groupId>
+            <artifactId>jsch</artifactId>
+            <version>0.1.55</version>
+        </dependency>
         <!--<dependency>-->
             <!--<groupId>com.sangupta</groupId>-->
             <!--<artifactId>har</artifactId>-->

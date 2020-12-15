@@ -20,6 +20,12 @@
             <artifactId>ganymed-ssh2</artifactId>
             <version>262</version>
         </dependency>
+
+        <dependency>
+            <groupId>me.zhengjie</groupId>
+            <artifactId>eladmin-system</artifactId>
+            <version>1.5</version>
+        </dependency>
     </dependencies>
 
 </project>

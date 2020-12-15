@@ -151,6 +151,57 @@ public class GenUtil {
         }
     }
 
+
+    public static Map<String,Object> convertTemplateMap(List<ColumnInfo> columnInfos,  String tableName) throws IOException {
+        Map<String,Object> map = new HashMap();
+        map.put("package","test");
+        map.put("moduleName","api");
+        map.put("author","");
+        map.put("date", LocalDate.now().toString());
+        map.put("tableName",tableName);
+        String className = StringUtils.toCapitalizeCamelCase(tableName);
+        map.put("className", className);
+        map.put("changeClassName", StringUtils.toCamelCase(tableName));
+        map.put("hasTimestamp",false);
+        map.put("hasBigDecimal",false);
+        map.put("hasQuery",false);
+
+        List<Map<String,Object>> columns = new ArrayList<>();
+        List<Map<String,Object>> queryColumns = new ArrayList<>();
+        for (ColumnInfo column : columnInfos) {
+            Map<String,Object> listMap = new HashMap();
+            listMap.put("columnComment",column.getColumnComment());
+            listMap.put("columnKey",column.getColumnKey());
+
+            String colType = ColUtil.cloToJava(column.getColumnType().toString());
+            if(PK.equals(column.getColumnKey())){
+                map.put("pkColumnType",colType);
+            }
+            if(TIMESTAMP.equals(colType)){
+                map.put("hasTimestamp",true);
+            }
+            if(BIGDECIMAL.equals(colType)){
+                map.put("hasBigDecimal",true);
+            }
+            listMap.put("columnType",colType);
+            listMap.put("columnName",column.getColumnName());
+            listMap.put("isNullable",column.getIsNullable());
+            listMap.put("columnShow",column.getColumnShow());
+            listMap.put("changeColumnName",StringUtils.toCamelCase(column.getColumnName().toString()));
+            listMap.put("capitalColumnName",StringUtils.toCapitalizeCamelCase(column.getColumnName().toString()));
+
+            if(!StringUtils.isBlank(column.getColumnQuery())){
+                listMap.put("columnQuery",column.getColumnQuery());
+                map.put("hasQuery",true);
+                queryColumns.add(listMap);
+            }
+            columns.add(listMap);
+        }
+        map.put("columns",columns);
+        map.put("queryColumns",queryColumns);
+        return map;
+    }
+
     /**
      * 定义后端文件路径以及名称
      */
@@ -227,16 +278,16 @@ public class GenUtil {
     /**
      *
      * @param genModule
-     * @param genStr
+     * @param genFileStr
      * @param map
      * @throws IOException
      */
-    public static void genFile(String genModule,String genStr, Map<String,Object> map) throws IOException {
+    public static void genFile(String genModule,String genFileStr, Map<String,Object> map) throws IOException {
         //path为根目录，subpath改目录下的模板文件
         TemplateEngine engine = TemplateUtil.createEngine(new TemplateConfig("template", TemplateConfig.ResourceMode.CLASSPATH));
-        String subpath = "generator/front/" + genModule + ".ftl";
+        String subpath = "generator/admin/" + genModule + ".ftl";
         Template template = engine.getTemplate(subpath);
-        genFile(new File(genStr),template,map);
+        genFile(new File(genFileStr),template,map);
     }
 
 
