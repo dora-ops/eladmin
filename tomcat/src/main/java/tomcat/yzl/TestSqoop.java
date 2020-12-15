@@ -19,7 +19,9 @@ public class TestSqoop {
     public static void main(String[] arg) throws SQLException, IOException {
         List<ColumnInfo> columnInfos = DBUtil.convertList("test_api", "test");
         Map<String, Object> test_api = GenUtil.convertTemplateMap(columnInfos, "test_api");
-        GenUtil.genFile("Dto",System.getProperty("user.dir")+"/Api.java",test_api);
+        GenUtil.genFile("Dto",System.getProperty("user.dir")+"/TestApiDTO.java",test_api);
 
     }
+
+
 }

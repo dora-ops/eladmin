@@ -1,8 +1,18 @@
+import com.alibaba.fastjson.JSONObject;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
+import model.TestApiDTO;
+import org.apache.commons.beanutils.BeanUtils;
 import org.junit.Test;
+import tomcat.yzl.DBUtil;
+import tomcat.yzl.FileUtil;
+import tomcat.yzl.Main;
+import tomcat.yzl.SqlUtil;
 
+import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.sql.SQLException;
 import java.util.*;
 import java.util.concurrent.*;
 import java.util.concurrent.locks.*;
@@ -13,9 +23,14 @@ import java.util.stream.Stream;
 public class ClientTest {
 
     @Test
-    public void apply() throws InterruptedException {
-       Object obj=new Object();
-       obj.wait(3000);
+    public void apply() throws InterruptedException, IOException, InvocationTargetException, IllegalAccessException, NoSuchMethodException, SQLException {
+        String json = FileUtil.getContentFromFile(Main.class.getClassLoader().getResourceAsStream("stable/prize/2.json"));
+        JSONObject jsonObject = JSONObject.parseObject(json);
+        TestApiDTO t = new TestApiDTO();
+        BeanUtils.populate(t, jsonObject);
+        t.setUri(jsonObject.getString("url"));
+        String sql = SqlUtil.getInsertSql("test_api", t);
+        DBUtil.exe(sql);
     }
 
 
@@ -106,7 +121,7 @@ public class ClientTest {
         }
     }
 
-    static long now=System.nanoTime();
+    static long now = System.nanoTime();
 
     public static void main(String[] args) throws ExecutionException, InterruptedException {
         List<String> strings = Arrays.asList("1", "2", "3");
@@ -117,17 +132,16 @@ public class ClientTest {
         Collector<? super String, ? extends Object, List<String>> collect = Collector.of(ArrayList::new, (a, b) -> {
             a.add(b);
             System.out.println("a = [" + a + "]");
-        },(a,b)->{
+        }, (a, b) -> {
             return a;
         });
         Collector<String, ?, Map<Integer, List<String>>> stringMapCollector = Collectors.groupingBy(String::length);
         Optional<String> max = stringStream.collect(Collectors.maxBy((s1, s2) -> {
-            return s1.length() > s2.length()?1:-1;
+            return s1.length() > s2.length() ? 1 : -1;
         }));
 
 
-
-        ScheduledThreadPoolExecutor executorService=new ScheduledThreadPoolExecutor(10);
+        ScheduledThreadPoolExecutor executorService = new ScheduledThreadPoolExecutor(10);
         executScheduleWithFixedDelay(executorService);
 
 //        executScheduleAtFixedRate(executorService);
@@ -137,35 +151,34 @@ public class ClientTest {
         System.out.println("over");
 
         executorService.shutdown();
-       stringStream = strings.parallelStream();
+        stringStream = strings.parallelStream();
 
-        stringStream= strings.stream();
+        stringStream = strings.stream();
 
         Map<Boolean, List<String>> collect2 = stringStream.collect(Collectors.partitioningBy((str) -> {
             return Integer.parseInt(str) > 1;
         }));
-        stringStream= strings.stream();
+        stringStream = strings.stream();
         List<String> collect1 = stringStream.collect(collect);
         System.out.println("args = [" + collect1 + "]");
     }
-    static long  triggerTime(long delay) {
-        long now= System.nanoTime();
-        System.out.println(now/(1000*1000));
+
+    static long triggerTime(long delay) {
+        long now = System.nanoTime();
+        System.out.println(now / (1000 * 1000));
         return now +
                 ((delay < (Long.MAX_VALUE >> 1)) ? delay : 0L);
     }
 
 
-
-
     // 间隔3秒执行一次
-    public static void executScheduleWithFixedDelay(ScheduledExecutorService executorService) throws InterruptedException,ExecutionException {
+    public static void executScheduleWithFixedDelay(ScheduledExecutorService executorService) throws InterruptedException, ExecutionException {
         long now = System.currentTimeMillis();
         ScheduledFuture<?> result = executorService.scheduleWithFixedDelay(
                 new Runnable() {
                     @Override
                     public void run() {
-                        System.out.println((System.currentTimeMillis()-now)/(1000));
+                        System.out.println((System.currentTimeMillis() - now) / (1000));
 //                        long l = triggerTime(-3000000000L);
 //                        long time = l - System.nanoTime();
 //                        System.out.println(time/(1000*1000));
@@ -175,20 +188,20 @@ public class ClientTest {
                             e.printStackTrace();
                         }
                     }
-                },1000, 30000,TimeUnit.MILLISECONDS
+                }, 1000, 30000, TimeUnit.MILLISECONDS
         );
 
         result.get();
     }
 
     // 线程在第4秒开始执行
-    public static void executScheduleAtFixedRate(final ScheduledThreadPoolExecutor executorService) throws InterruptedException,ExecutionException{
-        long now=System.currentTimeMillis();
+    public static void executScheduleAtFixedRate(final ScheduledThreadPoolExecutor executorService) throws InterruptedException, ExecutionException {
+        long now = System.currentTimeMillis();
         ScheduledFuture<?> result = executorService.scheduleAtFixedRate(
                 new Runnable() {
                     @Override
                     public void run() {
-                        System.out.println((System.currentTimeMillis()-now)/(1000));
+                        System.out.println((System.currentTimeMillis() - now) / (1000));
 //                        BlockingQueue<Runnable> queue = executorService.getQueue();
 //                        System.out.println("scheduleAtFixedRate-" + (triggerTime(-3000000000L)-now));
                         try {
@@ -197,14 +210,14 @@ public class ClientTest {
                             e.printStackTrace();
                         }
                     }
-                },1000, 8000,TimeUnit.MILLISECONDS
+                }, 1000, 8000, TimeUnit.MILLISECONDS
         );
 
         result.get();
     }
 
     // 线程延迟4秒执行,仅执行一次
-    public static void executSchedule(ScheduledExecutorService executorService) throws InterruptedException,ExecutionException{
+    public static void executSchedule(ScheduledExecutorService executorService) throws InterruptedException, ExecutionException {
 
         ScheduledFuture<?> result = executorService.schedule(
                 new Runnable() {
@@ -217,7 +230,7 @@ public class ClientTest {
                             e.printStackTrace();
                         }
                     }
-                },4000, TimeUnit.MILLISECONDS
+                }, 4000, TimeUnit.MILLISECONDS
         );
 
         result.get();
