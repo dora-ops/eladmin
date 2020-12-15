@@ -4,3 +4,10 @@ Controller的切面
 GlobalExceptionHandler
 LogInterceptor
 拦截器方式
+
+
+
+
+随机生成器
+请求逻辑图、节点间转接
+报告生成器
