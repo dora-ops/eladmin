@@ -2,6 +2,7 @@ package data;
 
 import com.alibaba.fastjson.JSONObject;
 import data.rule.StringGenerator;
+import me.zhengjie.utils.StringUtils;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -14,9 +15,15 @@ public class BodyGeneratorUtil {
         JSONObject genrateJson = new JSONObject();
         for (String key : json.keySet()) {
             Object value = json.get(key);
+            if (value == null) {
+                continue;
+            }
             assert value != null;
             if (value instanceof String) {//1,9
                 String str = (String) value;
+                if (StringUtils.isBlank(str)) {
+                    continue;
+                }
                 String[] split = str.split(",");
                 int min = Integer.parseInt(split[0]);
                 int max = Integer.parseInt(split[1]);

@@ -3,6 +3,7 @@ package data.rule;
 import tomcat.yzl.FileUtil;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
@@ -22,14 +23,15 @@ public class StringGenerator {
     }
 
     /**
-     *  从文本随机取一个长度满足[min,max]之间的字符串
+     * 从文本随机取一个长度满足[min,max]之间的字符串
+     *
      * @param min
      * @param max
      * @param flag
      * @return
      * @throws IOException
      */
-    public static String generateStrFromTxt(int min, int max, boolean flag){
+    public static String generateStrFromTxt(int min, int max, boolean flag) {
         Random random = new Random();
         String contentFromFile = null;
         try {
@@ -38,22 +40,30 @@ public class StringGenerator {
             e.printStackTrace();
         }
         List<String> list = Arrays.asList(contentFromFile.split(","));
-        while (list.size()!=0) {
-            int index = random.nextInt() * (list.size());
+//        List<String> hasUse =new ArrayList<>();
+        while (list.size() != 0) {
+            int index = (int) (random.nextDouble() * list.size());
             String str = list.get(index);
             if (flag) {
                 if (str.length() >= min && str.length() <= max) {
                     return str;
                 }
-                list.remove(index);
+                list = rm(list, index);
             } else {
-                if (str.length() < min && str.length() > max) {
+                if (str.length() < min || str.length() > max) {
                     return str;
                 }
-                list.remove(index);
+                list = rm(list, index);
             }
         }
         throw new RuntimeException("未有文本满足");
+    }
+
+    private static List<String> rm(List<String> list, int index) {
+        List<String> newList = new ArrayList<>();
+        newList.addAll(list);
+        newList.remove(index);
+        return newList;
     }
 
     /**

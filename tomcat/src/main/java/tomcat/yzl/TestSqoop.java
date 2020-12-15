@@ -2,6 +2,7 @@ package tomcat.yzl;
 
 import me.zhengjie.domain.vo.ColumnInfo;
 import me.zhengjie.utils.GenUtil;
+import me.zhengjie.utils.StringUtils;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -17,9 +18,10 @@ public class TestSqoop {
 
 
     public static void main(String[] arg) throws SQLException, IOException {
-        List<ColumnInfo> columnInfos = DBUtil.convertList("test_api", "test");
-        Map<String, Object> test_api = GenUtil.convertTemplateMap(columnInfos, "test_api");
-        GenUtil.genFile("Dto",System.getProperty("user.dir")+"/TestApiDTO.java",test_api);
+        String tableName="test_graph";
+        List<ColumnInfo> columnInfos = DBUtil.convertList(tableName, "test");
+        Map<String, Object> test_api = GenUtil.convertTemplateMap(columnInfos, tableName);
+        GenUtil.genFile("Model",System.getProperty("user.dir")+"/"+ StringUtils.toCapitalizeCamelCase(tableName)+".java",test_api);
 
     }
 
