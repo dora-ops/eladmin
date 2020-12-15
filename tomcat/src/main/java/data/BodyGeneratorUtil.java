@@ -9,6 +9,9 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * 请求体生成数据
+ */
 public class BodyGeneratorUtil {
 
     public static JSONObject generate(JSONObject json, boolean flag) {
