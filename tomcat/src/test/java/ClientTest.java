@@ -1,12 +1,11 @@
 import com.alibaba.fastjson.JSONObject;
-import com.mashape.unirest.http.HttpResponse;
-import com.mashape.unirest.http.Unirest;
-import com.mashape.unirest.http.exceptions.UnirestException;
+import data.BodyGenerator;
+import data.GeneratorEngine;
+import me.zhengjie.utils.FileUtil;
 import model.TestApiDTO;
 import org.apache.commons.beanutils.BeanUtils;
 import org.junit.Test;
 import tomcat.yzl.DBUtil;
-import tomcat.yzl.FileUtil;
 import tomcat.yzl.Main;
 import tomcat.yzl.SqlUtil;
 
@@ -31,6 +30,17 @@ public class ClientTest {
         t.setUri(jsonObject.getString("url"));
         String sql = SqlUtil.getInsertSql("test_api", t);
         DBUtil.exe(sql);
+    }
+
+    @Test
+    public void test() throws IOException {
+
+            String json = FileUtil.getContentFromFile(BodyGenerator.class.getClassLoader().getResourceAsStream("2.json"));
+            JSONObject jsonObject = JSONObject.parseObject(json);
+            JSONObject body = jsonObject.getJSONObject("body");
+            Map<Boolean, List<JSONObject>> booleanListMap = GeneratorEngine.generate(body);
+            System.out.println(booleanListMap);
+
     }
 
 

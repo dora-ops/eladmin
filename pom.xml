@@ -18,6 +18,7 @@
         <module>case</module>
         <module>tomcat</module>
         <module>starter</module>
+        <module>data</module>
     </modules>
 
     <name>el-admin</name>

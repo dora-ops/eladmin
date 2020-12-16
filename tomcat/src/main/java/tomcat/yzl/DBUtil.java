@@ -36,6 +36,17 @@ public class DBUtil {
     /**
      * 获取一个数据库链接
      */
+    public static Connection getConnection(Properties properties) throws SQLException {
+        driver = properties.getProperty("driver");
+        url = properties.getProperty("url");
+        user = properties.getProperty("user");
+        password = properties.getProperty("password");
+        return DriverManager.getConnection(url, user, password);
+    }
+
+    /**
+     * 获取一个数据库链接
+     */
     public static Connection getConnection() throws SQLException {
         return DriverManager.getConnection(url, user, password);
     }

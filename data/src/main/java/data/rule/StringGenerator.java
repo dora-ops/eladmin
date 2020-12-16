@@ -1,15 +1,20 @@
 package data.rule;
 
-import tomcat.yzl.FileUtil;
+
+import data.Generator;
+import lombok.Data;
+import me.zhengjie.utils.FileUtil;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
-public class StringGenerator {
+@Data
+public class StringGenerator implements Generator {
 
+
+    private int min = 3;
+
+    private int max = 9;
 
     public static String generateStr(int min, int max, boolean flag) {
         Random random = new Random();
@@ -40,7 +45,6 @@ public class StringGenerator {
             e.printStackTrace();
         }
         List<String> list = Arrays.asList(contentFromFile.split(","));
-//        List<String> hasUse =new ArrayList<>();
         while (list.size() != 0) {
             int index = (int) (random.nextDouble() * list.size());
             String str = list.get(index);
@@ -79,4 +83,8 @@ public class StringGenerator {
         return dic[index];
     }
 
+    @Override
+    public Object generate(Boolean json) {
+        return generateStrFromTxt(min, max, json);
+    }
 }

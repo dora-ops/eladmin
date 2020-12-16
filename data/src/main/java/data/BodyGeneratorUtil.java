@@ -41,10 +41,10 @@ public class BodyGeneratorUtil {
         LinkedHashMap<Boolean, List<JSONObject>> result = new LinkedHashMap<>();
         List<JSONObject> yes = new ArrayList<>();
         List<JSONObject> no = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 3; i++) {
             yes.add(generate(json, true));
         }
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 10; i++) {
             no.add(generate(json, false));
         }
         result.put(true, yes);

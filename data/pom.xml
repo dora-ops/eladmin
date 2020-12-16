@@ -9,29 +9,15 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>me.zhengjie</groupId>
-    <artifactId>tomcat</artifactId>
-    <version>1.0.0</version>
-    <packaging>jar</packaging>
+    <artifactId>data</artifactId>
 
     <dependencies>
         <dependency>
-            <groupId>ch.ethz.ganymed</groupId>
-            <artifactId>ganymed-ssh2</artifactId>
-            <version>262</version>
-        </dependency>
-
-        <dependency>
             <groupId>me.zhengjie</groupId>
-            <artifactId>eladmin-system</artifactId>
-            <version>1.5</version>
-        </dependency>
-
-        <dependency>
-            <groupId>me.zhengjie</groupId>
-            <artifactId>data</artifactId>
+            <artifactId>eladmin-common</artifactId>
             <version>1.5</version>
         </dependency>
     </dependencies>
+
 
 </project>
