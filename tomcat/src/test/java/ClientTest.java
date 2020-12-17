@@ -5,9 +5,9 @@ import me.zhengjie.utils.FileUtil;
 import model.TestApiDTO;
 import org.apache.commons.beanutils.BeanUtils;
 import org.junit.Test;
-import tomcat.yzl.DBUtil;
+import me.zhengjie.utils.DBUtil;
 import tomcat.yzl.Main;
-import tomcat.yzl.SqlUtil;
+import me.zhengjie.utils.SqlUtil;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
@@ -33,13 +33,27 @@ public class ClientTest {
     }
 
     @Test
-    public void test() throws IOException {
+    public void test() throws IOException, InvocationTargetException, IllegalAccessException, NoSuchMethodException, SQLException {
 
-            String json = FileUtil.getContentFromFile(BodyGenerator.class.getClassLoader().getResourceAsStream("2.json"));
-            JSONObject jsonObject = JSONObject.parseObject(json);
-            JSONObject body = jsonObject.getJSONObject("body");
-            Map<Boolean, List<JSONObject>> booleanListMap = GeneratorEngine.generate(body);
-            System.out.println(booleanListMap);
+        String json = FileUtil.getContentFromFile(BodyGenerator.class.getClassLoader().getResourceAsStream("2.json"));
+        JSONObject jsonObject = JSONObject.parseObject(json);
+        JSONObject body = jsonObject.getJSONObject("body");
+        Map<Boolean, List<JSONObject>> map = GeneratorEngine.generate(body);
+        List<JSONObject> genDataList = new ArrayList<>();
+        for (Boolean key : map.keySet()) {
+            List<JSONObject> list = map.get(key);
+            for (JSONObject genBody : list) {
+                JSONObject newJson = new JSONObject();
+                newJson.putAll(jsonObject);
+                newJson.put("body", genBody);
+                TestApiDTO t = new TestApiDTO();
+                BeanUtils.populate(t, newJson);
+                t.setUri(jsonObject.getString("url"));
+                t.setSuccess(key.toString());
+                String sql = SqlUtil.getInsertSql("test_api", t);
+                DBUtil.exe(sql);
+            }
+        }
 
     }
 

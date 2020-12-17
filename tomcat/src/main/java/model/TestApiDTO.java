@@ -19,4 +19,6 @@ public class TestApiDTO implements Serializable {
     private String queryParam;
 
     private Integer id;
+
+    private String success;
 }

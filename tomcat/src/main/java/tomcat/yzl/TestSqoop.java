@@ -1,6 +1,7 @@
 package tomcat.yzl;
 
 import me.zhengjie.domain.vo.ColumnInfo;
+import me.zhengjie.utils.DBUtil;
 import me.zhengjie.utils.GenUtil;
 import me.zhengjie.utils.StringUtils;
 

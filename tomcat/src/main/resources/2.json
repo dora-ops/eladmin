@@ -3,7 +3,6 @@
   "url":"",
   "referer":"",
   "body":{
-    "a":"3,9",
-    "b":""
+    "a":"data.rule.StringGenerator"
   }
 }

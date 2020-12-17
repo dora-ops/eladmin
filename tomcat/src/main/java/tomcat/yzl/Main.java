@@ -5,6 +5,9 @@ import java.util.Properties;
 import java.util.Set;
 
 import com.alibaba.fastjson.JSONObject;
+import me.zhengjie.utils.CookieUtil;
+import me.zhengjie.utils.FileUtil;
+import me.zhengjie.utils.HttpUtil;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Cookie;
 import org.openqa.selenium.WebDriver;
@@ -12,7 +15,6 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
 
 import com.mashape.unirest.http.HttpResponse;
-import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 
 public class Main {

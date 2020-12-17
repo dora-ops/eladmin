@@ -11,9 +11,9 @@ import java.util.Map;
 @Data
 public class GeneratorEngine {
 
-    public static int successCount = 3;
+    public static int successCount = 1;
 
-    public static int errorCount = 10;
+    public static int errorCount = 2;
 
     public static Map<Boolean, List<JSONObject>> generate(JSONObject json) {
         LinkedHashMap<Boolean, List<JSONObject>> result = new LinkedHashMap<>();
@@ -36,7 +36,7 @@ public class GeneratorEngine {
             String generator = json.getString(key);
             try {
                 Class<?> aClass =  Thread.currentThread().getContextClassLoader().loadClass(generator);
-                Generator g = (Generator) aClass.newInstance();
+                Generator g = Generator.class.cast(aClass.newInstance());
                 Object generate = g.generate(flag);
                 genrateJson.put(key, generate);
             } catch (ClassNotFoundException e) {
