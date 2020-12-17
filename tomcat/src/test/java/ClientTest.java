@@ -2,7 +2,8 @@ import com.alibaba.fastjson.JSONObject;
 import data.BodyGenerator;
 import data.GeneratorEngine;
 import me.zhengjie.utils.FileUtil;
-import model.TestApiDTO;
+import me.zhengjie.utils.JDBCDataUtil;
+import model.*;
 import org.apache.commons.beanutils.BeanUtils;
 import org.junit.Test;
 import me.zhengjie.utils.DBUtil;
@@ -11,6 +12,7 @@ import me.zhengjie.utils.SqlUtil;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
 import java.util.concurrent.*;
@@ -25,16 +27,14 @@ public class ClientTest {
     public void apply() throws InterruptedException, IOException, InvocationTargetException, IllegalAccessException, NoSuchMethodException, SQLException {
         String json = FileUtil.getContentFromFile(Main.class.getClassLoader().getResourceAsStream("stable/prize/2.json"));
         JSONObject jsonObject = JSONObject.parseObject(json);
-        TestApiDTO t = new TestApiDTO();
+        TestApi t = new TestApi();
         BeanUtils.populate(t, jsonObject);
-        t.setUri(jsonObject.getString("url"));
         String sql = SqlUtil.getInsertSql("test_api", t);
         DBUtil.exe(sql);
     }
 
     @Test
     public void test() throws IOException, InvocationTargetException, IllegalAccessException, NoSuchMethodException, SQLException {
-
         String json = FileUtil.getContentFromFile(BodyGenerator.class.getClassLoader().getResourceAsStream("2.json"));
         JSONObject jsonObject = JSONObject.parseObject(json);
         JSONObject body = jsonObject.getJSONObject("body");
@@ -46,15 +46,74 @@ public class ClientTest {
                 JSONObject newJson = new JSONObject();
                 newJson.putAll(jsonObject);
                 newJson.put("body", genBody);
-                TestApiDTO t = new TestApiDTO();
+                TestApi t = new TestApi();
                 BeanUtils.populate(t, newJson);
-                t.setUri(jsonObject.getString("url"));
                 t.setSuccess(key.toString());
                 String sql = SqlUtil.getInsertSql("test_api", t);
                 DBUtil.exe(sql);
             }
         }
+    }
 
+
+    @Test
+    public void generateGraph() throws IOException, InvocationTargetException, IllegalAccessException, NoSuchMethodException, SQLException {
+        TestGraph graph = new TestGraph();
+        graph.setDes("测试");
+        String sql = SqlUtil.getInsertSql("test_graph", graph);
+        int g_id = DBUtil.exe(sql);
+        int n_id = 0;
+        for (int i = 2; i <= 4; i++) {
+            String json = FileUtil.getContentFromFile(BodyGenerator.class.getClassLoader().getResourceAsStream("stable/prize/" + i + ".json"));
+            JSONObject jsonObject = JSONObject.parseObject(json);
+
+            TestNode testNode = new TestNode();
+            testNode.setGId(g_id);
+            testNode.setUri(jsonObject.getString("url"));
+            testNode.setNext(n_id);
+            BeanUtils.populate(testNode, jsonObject);
+
+            sql = SqlUtil.getInsertSql("test_node", testNode);
+            n_id = DBUtil.exe(sql);
+
+            JSONObject body = jsonObject.getJSONObject("body");
+            Map<Boolean, List<JSONObject>> map = GeneratorEngine.generate(body);
+            for (Boolean key : map.keySet()) {
+                List<JSONObject> list = map.get(key);
+                for (int j = 0; j < list.size(); j++) {
+                    JSONObject genBody = list.get(j);
+                    JSONObject newJson = new JSONObject();
+                    newJson.put("body", genBody);
+                    TestApi t = new TestApi();
+                    BeanUtils.populate(t, newJson);
+                    t.setSuccess(key.toString());
+                    t.setNId(n_id);
+                    t.setSeq(j);
+                    sql = SqlUtil.getInsertSql("test_api", t);
+                    DBUtil.exe(sql);
+                }
+            }
+        }
+    }
+
+    @Test
+    public void getGraph() throws IOException, SQLException, InvocationTargetException, IllegalAccessException {
+        String sql = FileUtil.getContentFromFile(Main.class.getClassLoader().getResourceAsStream("graph.sql"));
+        ResultSet query = DBUtil.query(sql);
+        List<Map<String, Object>> maps = JDBCDataUtil.convertList(query);
+        for (Map<String, Object> map:maps) {
+            Graph g=new Graph();
+            BeanUtils.populate(g,map);
+            sql = FileUtil.getContentFromFile(Main.class.getClassLoader().getResourceAsStream("1.sql"));
+            query = DBUtil.query(sql);
+            maps = JDBCDataUtil.convertList(query);
+            for (Map<String, Object> node:maps) {
+                Node n=new Node();
+                BeanUtils.populate(n,map);
+                Integer next = n.getNext();
+
+            }
+        }
     }
 
 

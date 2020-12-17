@@ -55,13 +55,18 @@ public class DBUtil {
     /**
      * 增加数据
      */
-    public static void exe(String sql) throws SQLException {
+    public static int exe(String sql) throws SQLException {
         Connection conn = DBUtil.getConnection();
         conn.setAutoCommit(false);
-        PreparedStatement preparedStatement = conn.prepareStatement(sql);
-        preparedStatement.executeUpdate();
+        PreparedStatement preparedStatement = conn.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
+        int i = preparedStatement.executeUpdate();
         conn.commit();
+        ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
+        generatedKeys.next();
+        int id = generatedKeys.getInt(1);
         conn.close();
+
+        return id;
     }
 
     /**

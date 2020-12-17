@@ -14,6 +14,9 @@ import java.io.Serializable;
 * @author ${author}
 * @date ${date}
 */
+@Entity
+@Data
+@Table(name="`${tableName}`")
 public class ${className} implements Serializable {
 <#if columns??>
     <#list columns as column>
