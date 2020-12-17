@@ -11,3 +11,6 @@ LogInterceptor
 随机生成器
 请求逻辑图、节点间转接
 报告生成器
+
+SPI优缺点
+https://www.dazhuanlan.com/2019/08/24/5d612e2063410/
