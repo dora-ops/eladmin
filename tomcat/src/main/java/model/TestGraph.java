@@ -8,6 +8,7 @@ import java.io.Serializable;
 * @author 
 * @date 2020-12-15
 */
+@Data
 public class TestGraph implements Serializable {
 
     @Id

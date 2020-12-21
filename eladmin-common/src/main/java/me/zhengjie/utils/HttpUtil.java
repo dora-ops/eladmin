@@ -16,31 +16,31 @@ public class HttpUtil {
     public static HttpResponse<String> request(JSONObject jsonObject, Cookie ctoken, String coockieStr) throws UnirestException {
         String method = jsonObject.getString("method");
         String url = jsonObject.getString("url");
-        String referer=jsonObject.getString("referer");
-        if ("POST".equals(method)){
-           return Unirest.post(url+ ctoken.getValue())
+        String referer = jsonObject.getString("referer");
+        if ("POST".equals(method)) {
+            return Unirest.post(url + ctoken.getValue())
                     .header("referer", referer)
-                    .header("cookie",coockieStr)
+                    .header("cookie", coockieStr)
                     .body(jsonObject.getJSONObject("body").toJSONString())
                     .asString();
-        }else if ("GET".equals(method)){
-            return Unirest.get(url+ ctoken.getValue())
+        } else if ("GET".equals(method)) {
+            return Unirest.get(url + ctoken.getValue())
                     .header("referer", referer)
-                    .header("cookie",coockieStr)
+                    .header("cookie", coockieStr)
                     .asString();
         }
         throw new RuntimeException("不支持请求方式");
     }
 
-    public static Response requestOkHttp(JSONObject jsonObject, Cookie ctoken, String coockieStr) throws  IOException {
+    public static Response requestOkHttp(JSONObject jsonObject, Cookie ctoken, String coockieStr) throws IOException {
         OkHttpClient client = new OkHttpClient();
         String method = jsonObject.getString("method");
         String url = jsonObject.getString("url");
-        String referer=jsonObject.getString("referer");
+        String referer = jsonObject.getString("referer");
         MediaType mediaType = MediaType.parse("text/plain;charset=UTF-8");
-        RequestBody body = RequestBody.create(mediaType,jsonObject.getJSONObject("body").toJSONString() );
+        RequestBody body = RequestBody.create(mediaType, jsonObject.getJSONObject("body").toJSONString());
         Request request = new Request.Builder()
-                .url(url+ ctoken.getValue())
+                .url(url + ctoken.getValue())
                 .post(body)
                 .addHeader("referer", referer)
                 .addHeader("cookie", coockieStr)

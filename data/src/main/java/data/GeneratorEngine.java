@@ -35,12 +35,18 @@ public class GeneratorEngine {
         for (String key : json.keySet()) {
             String generator = json.getString(key);
             try {
-                Class<?> aClass =  Thread.currentThread().getContextClassLoader().loadClass(generator);
-                Generator g = Generator.class.cast(aClass.newInstance());
-                Object generate = g.generate(flag);
-                genrateJson.put(key, generate);
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
+                Class<?> aClass = null;
+                Object value;
+                try {
+                    aClass = Thread.currentThread().getContextClassLoader().loadClass(generator);
+                    Generator g = Generator.class.cast(aClass.newInstance());
+                    value = g.generate(flag);
+                } catch (ClassNotFoundException e) {
+                    value = json.get(key);
+//                    e.printStackTrace();
+                }
+
+                genrateJson.put(key, value);
             } catch (IllegalAccessException e) {
                 e.printStackTrace();
             } catch (InstantiationException e) {
