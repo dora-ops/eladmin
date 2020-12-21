@@ -19,6 +19,7 @@
         <module>tomcat</module>
         <module>starter</module>
         <module>data</module>
+        <module>datastructure</module>
     </modules>
 
     <name>el-admin</name>
