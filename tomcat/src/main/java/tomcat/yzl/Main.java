@@ -4,6 +4,7 @@ import java.io.*;
 import java.util.Properties;
 import java.util.Set;
 
+import action.Login;
 import com.alibaba.fastjson.JSONObject;
 import me.zhengjie.utils.CookieUtil;
 import me.zhengjie.utils.FileUtil;
@@ -17,7 +18,7 @@ import org.openqa.selenium.interactions.Actions;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.exceptions.UnirestException;
 
-public class Main {
+public class Main implements Login{
 
     public ChromeDriver driver;
 

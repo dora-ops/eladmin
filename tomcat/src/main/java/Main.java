@@ -67,7 +67,7 @@ public class Main {
         }
         String[] s = result.split(",");
         for (int i = 0; i < s.length; i++) {
-            
+
         }
         System.out.println(result);
     }

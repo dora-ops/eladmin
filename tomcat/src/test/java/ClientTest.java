@@ -1,14 +1,11 @@
 import com.alibaba.fastjson.JSONObject;
 import data.BodyGenerator;
 import data.GeneratorEngine;
-import me.zhengjie.utils.FileUtil;
-import me.zhengjie.utils.JDBCDataUtil;
+import me.zhengjie.utils.*;
 import model.*;
 import org.apache.commons.beanutils.BeanUtils;
 import org.junit.Test;
-import me.zhengjie.utils.DBUtil;
 import tomcat.yzl.Main;
-import me.zhengjie.utils.SqlUtil;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
@@ -97,7 +94,7 @@ public class ClientTest {
     }
 
     @Test
-    public void getGraph() throws IOException, SQLException, InvocationTargetException, IllegalAccessException {
+    public void getGraph() throws IOException, SQLException, InvocationTargetException, IllegalAccessException, InstantiationException {
         String sql = FileUtil.getContentFromFile(Main.class.getClassLoader().getResourceAsStream("graph.sql"));
         ResultSet query = DBUtil.query(sql);
         List<Map<String, Object>> maps = JDBCDataUtil.convertList(query);
@@ -107,11 +104,11 @@ public class ClientTest {
             sql = FileUtil.getContentFromFile(Main.class.getClassLoader().getResourceAsStream("1.sql"));
             query = DBUtil.query(sql);
             maps = JDBCDataUtil.convertList(query);
+            LinkedList<TestNode> queue = CollectionUtil.getQueue(maps, "id", "parentId", 0, TestNode.class);
             for (Map<String, Object> node:maps) {
                 Node n=new Node();
-                BeanUtils.populate(n,map);
-                Integer next = n.getNext();
-
+                TestNode testNode=new TestNode();
+                BeanUtils.populate(testNode,node);
             }
         }
     }

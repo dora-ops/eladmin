@@ -2,8 +2,12 @@ package model;
 
 import lombok.Data;
 
-@Data
-public class Node extends TestNode {
+import java.util.List;
 
-    private Node nextPoint;
+@Data
+public class Node {
+
+    private TestNode testNode;
+
+    private List<TestApi> apiList;
 }
