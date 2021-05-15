@@ -4,9 +4,9 @@ spring:
     druid:
       type: com.alibaba.druid.pool.DruidDataSource
       driverClassName: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
-      url: jdbc:log4jdbc:mysql://47.111.196.219:3306/eladmin_new?serverTimezone=Asia/Shanghai&characterEncoding=utf8&useSSL=false
-      username: yzl
-      password: '#$ERDFCV5tgb'
+      url: jdbc:log4jdbc:mysql://127.0.0.1:3306/illustrator?serverTimezone=Asia/Shanghai&characterEncoding=utf8&useSSL=false
+      username: root
+      password: 'root'
 
       # 初始化连接大小
       initial-size: 5
